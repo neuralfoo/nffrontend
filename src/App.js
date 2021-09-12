@@ -4,7 +4,9 @@ import Login from './Login'
 import Masthead from './Masthead'
 import Dashboard from './Dashboard'
 
-import { authtoken, resetAuthToken, setAuthToken } from './globals'
+import { authtoken } from './globals'
+
+import Cookies from 'universal-cookie';
 
 import {
   BrowserRouter as Router,
@@ -20,6 +22,10 @@ function App() {
 
   const auth = authtoken.use()
 
+  const cookies = new Cookies();
+
+  console.log(cookies.get('token'));
+
   return (
     <Router>
 
@@ -29,25 +35,31 @@ function App() {
 
 
       <Route path="/login">
-          <Masthead />
-          <Login />
+          {
+            cookies.get('token') ?
+              <Redirect to="/dashboard" />
+              :
+              <>
+              <Masthead  cookies={cookies} hideLoginLink={true}/>
+              <Login  cookies={cookies}/>
+              </>
+          }
       </Route>
 
       <Route path="/dashboard">
           {
-            auth === "" ? 
+            cookies.get('token') ? 
+            <>
+              <Masthead  cookies={cookies}/>
+              <Dashboard  cookies={cookies}/>
+            </>
+            : 
             <Redirect to="/login" />
-            :
-          <>
-          <Masthead />
-          <Dashboard />
-          </>
           }
       </Route>
 
       <Route path="/">
-          <Masthead />
-          <NavLink to="/login" activeClassName="hurray">Go to login page</NavLink>
+          <Masthead  cookies={cookies}/>
       </Route>
 
       </Switch>

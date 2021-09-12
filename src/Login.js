@@ -4,8 +4,16 @@ import { useHistory } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import backend from "./backend"
+import axios from 'axios'
+
+import { resetAuthToken, setAuthToken } from './globals'
+
+
 function Login(props) {
-  const username = useFormInput('');
+
+
+  const email = useFormInput('');
   const password = useFormInput('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -14,8 +22,21 @@ function Login(props) {
   // handle button click of login form
   const handleLogin = () => {
   	console.log("hitting login API")
-  	
-    history.push('/dashboard');
+  	const payload = { email: email.value , password : password.value };
+    axios.post(backend.login, payload)
+        .then(response => { 
+        	// console.log(response.data.token)
+        	props.cookies.set('token', response.data.token, { path: '/' });
+        	setAuthToken(response.data.token)
+        	history.push('/dashboard'); 
+        })
+        .catch(error => {
+            props.cookies.set('token', '', { path: '/' });
+            resetAuthToken();
+            console.error(error.response.data.message);
+            setError(error.response.data.message)
+            // alert(error.message)
+        });
   }
  
   return (
@@ -28,7 +49,7 @@ function Login(props) {
 	    	</div>
       
 			<div>
-				<TextField id="outlined-basic-email" type="text" {...username} label="Email ID" variant="outlined" autoComplete="new-password" />
+				<TextField id="outlined-basic-email" type="text" {...email} label="Email ID" variant="outlined" autoComplete="new-password" />
 			</div>
 
 			<div style={{ marginTop: 10 }}>
