@@ -1,24 +1,59 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import Login from './Login'
+import Masthead from './Masthead'
+import Dashboard from './Dashboard'
+
+import { authtoken, resetAuthToken, setAuthToken } from './globals'
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink,
+  Redirect
+} from "react-router-dom";
+
+
 
 function App() {
+
+  const auth = authtoken.use()
+
   return (
+    <Router>
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <Switch>
+
+
+      <Route path="/login">
+          <Masthead />
+          <Login />
+      </Route>
+
+      <Route path="/dashboard">
+          {
+            auth === "" ? 
+            <Redirect to="/login" />
+            :
+          <>
+          <Masthead />
+          <Dashboard />
+          </>
+          }
+      </Route>
+
+      <Route path="/">
+          <Masthead />
+          <NavLink to="/login" activeClassName="hurray">Go to login page</NavLink>
+      </Route>
+
+      </Switch>
     </div>
+
+    </Router>
   );
 }
 
