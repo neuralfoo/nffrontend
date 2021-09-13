@@ -3,6 +3,7 @@ import React from 'react';
 import Login from './Login'
 import Masthead from './Masthead'
 import Dashboard from './Dashboard'
+import Testboard from './Testboard'
 
 import { authtoken } from './globals'
 
@@ -24,8 +25,6 @@ function App() {
 
   const cookies = new Cookies();
 
-  console.log(cookies.get('token'));
-
   return (
     <Router>
 
@@ -40,7 +39,7 @@ function App() {
               <Redirect to="/dashboard" />
               :
               <>
-              <Masthead  cookies={cookies} hideLoginLink={true}/>
+              <Masthead  cookies={cookies} hideNav={true}/>
               <Login  cookies={cookies}/>
               </>
           }
@@ -52,6 +51,18 @@ function App() {
             <>
               <Masthead  cookies={cookies}/>
               <Dashboard  cookies={cookies}/>
+            </>
+            : 
+            <Redirect to="/login" />
+          }
+      </Route>
+
+      <Route path="/test/new">
+          {
+            cookies.get('token') ? 
+            <>
+              <Masthead  cookies={cookies}/>
+              <Testboard cookies={cookies}/>
             </>
             : 
             <Redirect to="/login" />

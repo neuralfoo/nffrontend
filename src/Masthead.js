@@ -25,13 +25,18 @@ function Masthead(props) {
 		<div className="masthead-holder">
 			<NavLink to="/" className="masthead-title">Neural Foo</NavLink>
 			<div className="masthead-nav">
+
+				{
+					props.hideNav ? null :
+					<NavLink to="/dashboard" className="masthead-nav-link">Dashboard</NavLink>
+				}
 				{
 					props.cookies.get('token') ? 
 					<button className="masthead-nav-link" onClick={logout}>Logout</button> : 
 					null 
 				}
 				{
-					props.cookies.get('token') === undefined && props.hideLoginLink ?
+					props.cookies.get('token') === undefined && props.hideNav ?
 					<NavLink to="/login" className="masthead-nav-link">Login</NavLink> : null
 				}
 						
