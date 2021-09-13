@@ -43,8 +43,12 @@ function Testboard(props) {
 	}
 
 	const apiname = useFormInput('')
+	
 	const apitype = useSelectInput(null)
 	const apienvironment = useSelectInput(null)
+	const httpmethod = useSelectInput(null)
+
+	const apiendpoint = useFormInput('')
 
 	const { Option } = Select;
 
@@ -69,6 +73,41 @@ function Testboard(props) {
 					</div>
 				</div>
 
+
+				<div className="testboard-horizontal-holder">
+					<div className="testboard-key-value-holder">
+						<div className="testboard-keyname">
+							HTTP Method
+						</div>
+						<div className="testboard-valuename">
+							<Select 
+								placeholder="Method" size="large" 
+								className="testboard-input-httpmethod" {...httpmethod} >
+
+								<Option value="GET">GET</Option>
+								<Option value="POST">POST</Option>
+								<Option value="PUT">PUT</Option>
+								<Option value="DELETE">DELETE</Option>
+							</Select>
+						</div>
+					</div>
+
+
+					<div className="testboard-key-value-holder">
+						<div className="testboard-keyname">
+							API Endpoint
+						</div>
+						<div className="testboard-valuename">
+							<Input 
+								placeholder="Write down your API endpoint here ..." 
+								size="large" className="testboard-input" 
+								{...apiendpoint} bordered={false} />
+						</div>
+					</div>
+
+				</div>
+
+				
 				<div className="testboard-horizontal-holder">
 					<div className="testboard-key-value-holder">
 						<div className="testboard-keyname">
@@ -104,6 +143,7 @@ function Testboard(props) {
 						</div>
 					</div>
 				</div>
+
 
 			</div>
 			

@@ -41,17 +41,19 @@
 
 
 .testboard-input{
-	padding: 0;
+	padding-left: 0;
 	width: 400px;
 	text-align: left;
 }
 
 .testboard-select{
-	
-	padding: 0;
 	width: 350px;
 	text-align: left;
+}
 
+.testboard-input-httpmethod{
+	width: 150px;
+	text-align: left;
 }
 
 .testboard-key-value-holder{
