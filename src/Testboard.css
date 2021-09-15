@@ -6,6 +6,8 @@
 
 	align-items:center;
 	justify-content: flex-start;
+
+	font-family: sans-serif;
 }
 
 
@@ -46,8 +48,15 @@
 	text-align: left;
 }
 
+
+.testboard-input-header{
+	padding-left: 0;
+	width: 250px;
+	text-align: left;
+}
+
 .testboard-select{
-	width: 350px;
+	width: 200px;
 	text-align: left;
 }
 
@@ -73,10 +82,28 @@
 
 }
 
+
+.testboard-keyname-header{
+	color: #888;
+	font-size: 14px;
+	margin: 10px 0px 5px 0px;
+
+}
+
+.add-header-button{
+	margin: 15px 0px 15px 0px;
+	font-size: 13px;
+	color: #888;
+}
+
+.testboard-icon-holder{
+	align-self: center;
+}
+
 /**{
 	border: 1px solid #000;
-}*/
-
+}
+*/
 
 
 
