@@ -4,6 +4,8 @@ import { Table, Tag, Space, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useHistory } from "react-router-dom";
 
+import endpoints from "./endpoints"
+
 import "./Dashboard.css"
 import "antd/dist/antd.css";
 
@@ -13,7 +15,7 @@ import { authtoken } from './globals'
 
 function Dashboard(props) {
 
-	const auth = authtoken.use()
+	authtoken.use()
 
 	// console.log(auth)
 	// console.log("dashboard Current auth token:",props.cookies.get('token'))
@@ -21,7 +23,7 @@ function Dashboard(props) {
 	const history = useHistory();
 
 	const createNewTest = () => {
-		history.push('/test/new'); 
+		history.push(endpoints.newTestboard); 
 	}
 
 

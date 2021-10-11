@@ -9,11 +9,12 @@ import { authtoken } from './globals'
 
 import Cookies from 'universal-cookie';
 
+import endpoints from './endpoints';
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  NavLink,
   Redirect
 } from "react-router-dom";
 
@@ -21,7 +22,7 @@ import {
 
 function App() {
 
-  const auth = authtoken.use()
+  authtoken.use()
 
   const cookies = new Cookies();
 
@@ -33,10 +34,10 @@ function App() {
       <Switch>
 
 
-      <Route path="/login">
+      <Route path={endpoints.login}>
           {
             cookies.get('token') ?
-              <Redirect to="/dashboard" />
+              <Redirect to={endpoints.dashboard} />
               :
               <>
               <Masthead  cookies={cookies} hideNav={true}/>
@@ -45,7 +46,7 @@ function App() {
           }
       </Route>
 
-      <Route path="/dashboard">
+      <Route path={endpoints.dashboard}>
           {
             cookies.get('token') ? 
             <>
@@ -53,24 +54,43 @@ function App() {
               <Dashboard  cookies={cookies}/>
             </>
             : 
-            <Redirect to="/login" />
+            <Redirect to={endpoints.login} />
           }
       </Route>
 
-      <Route path="/test/new">
+      <Route path={endpoints.newTestboard}>
           {
             cookies.get('token') ? 
             <>
               <Masthead  cookies={cookies}/>
-              <Testboard cookies={cookies}/>
+              <Testboard cookies={cookies} />
             </>
             : 
-            <Redirect to="/login" />
+            <Redirect to={endpoints.login} />
           }
       </Route>
 
-      <Route path="/">
+      <Route path={endpoints.getTestboard}>
+          {
+            cookies.get('token') ? 
+            <>
+              <Masthead  cookies={cookies}/>
+              <Testboard cookies={cookies} />
+            </>
+            : 
+            <Redirect to={endpoints.login} />
+          }
+      </Route>
+
+      <Route exact path="/">
           <Masthead  cookies={cookies}/>
+      </Route>
+
+      <Route path="*">
+        <>
+          <Masthead  cookies={cookies}/>
+          404 - Page Not Found
+        </>
       </Route>
 
       </Switch>

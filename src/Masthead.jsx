@@ -5,10 +5,14 @@ import "./Masthead.css"
 import { authtoken, resetAuthToken } from './globals'
 import { useHistory,NavLink } from "react-router-dom";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 function Masthead(props) {
 
-	const auth = authtoken.use()
+	authtoken.use()
 	const history = useHistory();
 
 	// const [localauth, setLocalauth] = useState(auth);
@@ -40,7 +44,7 @@ function Masthead(props) {
 					<NavLink to="/login" className="masthead-nav-link">Login</NavLink> : null
 				}
 						
-				
+				<ToastContainer />
 			</div>
 		</div>
 		)
