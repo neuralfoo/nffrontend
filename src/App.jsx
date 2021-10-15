@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React,{useEffect} from 'react';
 import Login from './Login'
 import Masthead from './Masthead'
 import Dashboard from './Dashboard'
@@ -25,6 +25,10 @@ function App() {
   authtoken.use()
 
   const cookies = new Cookies();
+
+  useEffect(() => {
+   document.title = "Neural Foo"
+  }, []);
 
   return (
     <Router>

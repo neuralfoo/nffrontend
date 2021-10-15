@@ -13,39 +13,65 @@ import axios from 'axios'
 
 import sendErrorNotification from "./notification"
 
-import CodeEditor from '@uiw/react-textarea-code-editor';
-
+import Request from "./Request"
 
 function Testboard(props) {
 
 	authtoken.use()
  	
+
+
 	let { testboardID } = useParams();
 
 	const [testboard, setTestboard] = useState({});
 	const [testboardReceived, setTestboardReceived] = useState(false);
 	const [testboardEdited, setTestboardEdited] = useState(false);
+	
+	const [executeOnce, setExecuteOnce] = useState(false);
 
 
 	const history = useHistory();
 
 	const [apiName, setApiName] = useState("");
-	const [apiHeader, setApiHeader] = useState([]);
-	const [apiInputDataType, setApiInputDataType] = useState(null);
-	const [apiRequestBodyType, setApiRequestBodyType] = useState(null);
-	const [apiResponseBodyType, setApiResponseBodyType] = useState(null);
+	const [apiRequests, setApiRequests] = useState([]);
 
+	
+	const newRequest = () => {
+
+		var r = {}
+		r.apiEndpoint = ""
+		r.apiHeader = []
+		r.apiInputDataType = null
+		r.apiRequestBodyType = null
+		r.apiResponseBodyType = null
+		r.apiResponseBody = ""
+		r.apiRequestBody = ""
+		r.apiHttpMethod = null
+		setApiRequests([...apiRequests,r])
+		setTestboardEdited(true)
+	}
+
+	const removeRequest = (i) => {
+	    let newArr = [...apiRequests]
+	    newArr.splice(parseInt(i),1)
+
+	    setApiRequests(newArr)
+		setTestboardEdited(true)
+	}
+
+
+	const changeRequestParam = (i,p,v) => {
+		var r = apiRequests
+		r[i][p] = v
+		setApiRequests(r)
+
+	}
 
 	const initValues = (response) => {
 
-		setTestboard(response.data.testboard)
-		setApiName(response.data.testboard.apiName)
-		setApiHeader(response.data.testboard.apiHeader)
-		setApiInputDataType(response.data.testboard.apiInputDataType)
-		setApiRequestBodyType(response.data.testboard.apiRequestBodyType)
-		setApiResponseBodyType(response.data.testboard.apiResponseBodyType)
-
-
+		setTestboard(response.data.testboard);
+		setApiName(response.data.testboard.apiName);
+		// setApiRequests(response.data.testboard.apiRequests);
 	}
 
 	const getTestboard = () => {
@@ -76,6 +102,13 @@ function Testboard(props) {
 
 	useEffect(() => {
 
+		if (executeOnce === false) {
+			if (testboardID === undefined){
+				newRequest()			
+			}
+			setExecuteOnce(true)
+		}
+
 		getTestboard()
 	});
 
@@ -86,26 +119,6 @@ function Testboard(props) {
 		setTestboardEdited(true)
 	}
 
-	const onChangeApiInputDataType = (e) => {
-		onFieldChange(e,"apiInputDataType") 
-		setApiInputDataType(e.target.value)
-		setTestboardEdited(true)
-
-	}
-
-	const onChangeApiRequestBodyType = (e) => {
-		onFieldChange(e,"apiRequestBodyType") 
-		setApiRequestBodyType(e.target.value)
-		setTestboardEdited(true)
-
-	}
-
-	const onChangeApiResponseBodyType = (e) => {
-		onFieldChange(e,"apiResponseBodyType") 
-		setApiResponseBodyType(e.target.value)
-		setTestboardEdited(true)
-
-	}
 
 	const onFieldChange = (e,f) => {
 
@@ -125,66 +138,6 @@ function Testboard(props) {
 
 	}
 
-
-	const onHeaderNameChange = e => {
-
-	    const { target: {value, name } } = e
-
-	    let newArr = [...apiHeader]
-	    newArr[parseInt(name)][0] = value
-
-	    setApiHeader(newArr)
-	    
-	    let temp = testboard
-	    temp.apiHeader = apiHeader
-	    setTestboard(temp)
-		setTestboardEdited(true)
-
-
-	}
-
-	const onHeaderValueChange = e => {
-	    const { target: {value, name } } = e
-
-	    let newArr = [...apiHeader]
-	    newArr[parseInt(name)][1] = value
-	    
-	    setApiHeader(newArr)
-
-	    let temp = testboard
-	    temp.apiHeader = apiHeader
-	    setTestboard(temp)
-		setTestboardEdited(true)
-
-
-	}
-	 
-	const addHeader = () => {
-		setApiHeader(prev =>([
-	        ...prev,
-	        ["",""] 
-	    ]))
-
-	    let temp = testboard
-	    temp.apiHeader = apiHeader
-	    setTestboard(temp)
-
-		setTestboardEdited(true)
-
-	}
-
-	const removeHeader = e => {
-
-	    let newArr = [...apiHeader]
-	    newArr.splice(parseInt(e),1)
-	    setApiHeader(newArr)
-
-	    let temp = testboard
-	    temp.apiHeader = newArr
-	    setTestboard(temp)
-		setTestboardEdited(true)
-
-	}
 
 	const createTestboard = () => {
 	  	
@@ -241,6 +194,8 @@ function Testboard(props) {
   	const discardTestboard = () => {
   		history.push('/dashboard'); 
   	}
+
+
 
 
 	const { Option } = Select;
@@ -309,147 +264,18 @@ function Testboard(props) {
 					</div>
 				</div>
 
-
-				<div className="testboard-horizontal-holder">
-					<div className="testboard-key-value-holder">
-						<div className="testboard-keyname">
-							HTTP Method
-						</div>
-						<div className="testboard-valuename">
-							<Select 
-								placeholder="Method" size="medium" 
-								className="testboard-input-httpmethod"  
-								value={testboard ? testboard.apiHttpMethod : "" } 
-								onChange = {(evn) => onFieldChange(evn,"apiHttpMethod")} >
-
-								<Option value="GET">GET</Option>
-								<Option value="POST">POST</Option>
-								<Option value="PUT">PUT</Option>
-								<Option value="DELETE">DELETE</Option>
-							</Select>
-						</div>
-					</div>
-
-
-					<div className="testboard-key-value-holder-fullwidth">
-						<div className="testboard-keyname">
-							API Endpoint
-						</div>
-						<div className="testboard-valuename-endpoint">
-							<Input 
-								placeholder="Type your API endpoint here ..." 
-								size="large" className="testboard-input-endpoint" 
-								value={testboard ? testboard.apiEndpoint : "" } 
-								onChange = {(evn) => onFieldChange(evn,"apiEndpoint")}
-								bordered={false} />
-						</div>
-					</div>
-
-				</div>
-				
-
-				<div className="testboard-keyname">
-					HTTP headers
-				</div>
-
 				{
-					apiHeader.map((item,index) => (
-						<div className="testboard-horizontal-holder" key={index}>
-                        	<div className="testboard-key-value-holder">
-								<div className="testboard-valuename">
-									<Input 
-										placeholder="key" 
-										size="large" className="testboard-input-header" 
-										bordered={true} name={index} value={item[0]} onChange={onHeaderNameChange}/>
-								</div>
-							</div>
-
-							<div className="testboard-key-value-holder">
-								<div className="testboard-valuename">
-									<Input 
-										placeholder="value" 
-										size="large" className="testboard-input-header" 
-										bordered={true} name={index} value={item[1]} onChange={onHeaderValueChange}/>
-								</div>
-							</div>
-
-							<div className="testboard-icon-holder"> <MinusSquareOutlined name={index} onClick={() => removeHeader(index)} /> </div> 
-						</div>
-                	)) 
-				}
-
-				<Button className="add-header-button" type="dashed" 
-						icon={<PlusOutlined />} size="medium" onClick={addHeader}>
-					Add Header
-				</Button>
-
-				<div className="testboard-key-value-holder">
-					<div className="testboard-keyname">
-						API Input Type
-					</div>
-					<Radio.Group className="testboard-requestbodytype"
-						value={apiInputDataType} 
-						onChange = {onChangeApiInputDataType} >
-
-					  <Radio value="url" className="testboard-radio-button-text">URL</Radio>
-					  <Radio value="file" className="testboard-radio-button-text">File</Radio>
-					  <Radio value="base64" className="testboard-radio-button-text">Base64</Radio>
-					</Radio.Group>
-				</div>
-
-				<div className="testboard-key-value-holder">
-					<div className="testboard-keyname">
-						API Request Body
-					</div>
 					
-					<Radio.Group className="testboard-requestbodytype" 
-						value={apiRequestBodyType } 
-						onChange = {onChangeApiRequestBodyType} 
-						>
-					  <Radio value="json" className="testboard-radio-button-text" >JSON</Radio>
-					  <Radio value="formData" className="testboard-radio-button-text">Form-Data</Radio>
-					  <Radio value="binary" className="testboard-radio-button-text">Binary</Radio>
-					  <Radio value="none" className="testboard-radio-button-text">None</Radio>
-					</Radio.Group>
+					apiRequests.map((item,index) => (
+							<Request key={index} index={index} data={item} removeRequest={removeRequest} onChange={changeRequestParam} setTestboardEdited={setTestboardEdited} />
+					))
 
-					<CodeEditor
-						value={testboard ? testboard.apiRequestBody : "" } 
-						onChange = {(evn) => onFieldChange(evn,"apiRequestBody")} 
-						
-						language="json"
-						placeholder="Type request body template here ..."
-						padding={15}
-						className="testboard-requestbody"
-						style={{fontSize: 14,fontFamily:"monospace"}}
-					/>
-				</div>
-
-
-				<div className="testboard-key-value-holder">
-					<div className="testboard-keyname">
-						API Response Body
-					</div>
-					<Radio.Group className="testboard-requestbodytype" 
-
-						value={apiResponseBodyType} 
-						onChange = {onChangeApiResponseBodyType}
-						>
-					  <Radio value="json" className="testboard-radio-button-text">JSON</Radio>
-					  <Radio value="rawText" className="testboard-radio-button-text">Raw Text</Radio>
-					</Radio.Group>
-					<CodeEditor
-						value={testboard ? testboard.apiResponseBody : "" } 
-						onChange = {(evn) => onFieldChange(evn,"apiResponseBody")}
-						
-						language="json"
-						placeholder="Type response body template here ..."
-
-						padding={15}
-						className="testboard-requestbody"
-						style={{fontSize: 14,fontFamily:"monospace"}}
-						
-					/>
-				</div>
+				}
+				
+				<Button className="add-request-button" 
+						icon={<PlusOutlined />} size="medium" onClick={newRequest}>
+					Add Request
+				</Button>
 
 				{
 					testboardID ?

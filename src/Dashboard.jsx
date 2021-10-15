@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import { Table, Tag, Space, Button } from 'antd';
 
 import { PlusOutlined } from '@ant-design/icons';
@@ -9,9 +9,13 @@ import endpoints from "./endpoints"
 import "./Dashboard.css"
 import "antd/dist/antd.css";
 
-import { authtoken } from './globals'
+import sendErrorNotification from "./notification"
 
 
+import { authtoken,resetAuthToken } from './globals'
+
+import backend from "./backend"
+import axios from 'axios'
 
 function Dashboard(props) {
 
@@ -25,6 +29,40 @@ function Dashboard(props) {
 	const createNewTest = () => {
 		history.push(endpoints.newTestboard); 
 	}
+
+
+	const [pageLoaded, setPageLoaded] = useState(false);
+	const [testboards, setTestboards] = useState(null);
+
+	const fetchTestboards = () => {
+
+		
+	    axios.get(backend.updateTestboard,
+	    		{ 
+	    			headers: {"Authorization" : props.cookies.get('token')}
+	    		} 
+	    	)
+	        .then(response => { 
+	        	// history.push('/testboard/details/'+response.data.id);
+	        	setPageLoaded(true) 
+	        })
+	        .catch(error => {
+	            
+	            if (error.response.status === 400){
+		            sendErrorNotification(error.response.data.message)
+	            }
+
+	            if (error.response.status === 401){
+	            	// sendErrorNotification(error.response.data.message);
+	            	props.cookies.set('token', '', { path: '/' });
+		            resetAuthToken();
+	            }
+	        });
+	}
+
+	// useEffect(() => {
+	// 	getTestboard()
+	// });
 
 
 	const columns = [
