@@ -1,8 +1,8 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useLayoutEffect} from 'react';
 import { Table, Tag, Space, Button } from 'antd';
 
 import { PlusOutlined } from '@ant-design/icons';
-import { useHistory } from "react-router-dom";
+import { useHistory,NavLink } from "react-router-dom";
 
 import endpoints from "./endpoints"
 
@@ -31,57 +31,67 @@ function Dashboard(props) {
 	}
 
 
-	const [pageLoaded, setPageLoaded] = useState(false);
-	const [testboards, setTestboards] = useState(null);
+	// const [pageLoaded, setPageLoaded] = useState(false);
+	const [testboards, setTestboards] = useState([]);
 
-	const fetchTestboards = () => {
+	
+
+	useLayoutEffect(() => {	
+
+		const fetchTestboards = () => {
 
 		
-	    axios.get(backend.updateTestboard,
-	    		{ 
-	    			headers: {"Authorization" : props.cookies.get('token')}
-	    		} 
-	    	)
-	        .then(response => { 
-	        	// history.push('/testboard/details/'+response.data.id);
-	        	setPageLoaded(true) 
-	        })
-	        .catch(error => {
-	            
-	            if (error.response.status === 400){
-		            sendErrorNotification(error.response.data.message)
-	            }
+		    axios.get(backend.listTestboards,
+		    		{ 
+		    			headers: {"Authorization" : props.cookies.get('token')}
+		    		} 
+		    	)
+		        .then(response => { 
+		        	
+		        	setTestboards(response.data.testboards)
+		        	 
+		        })
+		        .catch(error => {
+		            
+		            if (error.response.status === 400){
+			            sendErrorNotification(error.response.data.message)
+		            }
 
-	            if (error.response.status === 401){
-	            	// sendErrorNotification(error.response.data.message);
-	            	props.cookies.set('token', '', { path: '/' });
-		            resetAuthToken();
-	            }
-	        });
-	}
+		            if (error.response.status === 401){
+		            	// sendErrorNotification(error.response.data.message);
+		            	props.cookies.set('token', '', { path: '/' });
+			            resetAuthToken();
+						history.push(endpoints.login); 
+		            }
+		        });
+		}
 
-	// useEffect(() => {
-	// 	getTestboard()
-	// });
+
+		if (props.cookies.get('token') === "" || props.cookies.get('token') === undefined){
+			history.push(endpoints.login);
+		}
+
+		fetchTestboards()	
+	},[]);
 
 
 	const columns = [
 	  {
 	    title: 'Test No.',
-	    dataIndex: 'testno',
-	    key: 'testno',
+	    dataIndex: 'key',
+	    key: 'key',
 	    sorter: (a, b) => parseInt(a.testno) - parseInt(b.testno)
 	  },
 	  {
 	    title: 'API Name',
-	    dataIndex: 'apiname',
-	    key: 'apiname',
+	    dataIndex: 'apiName',
+	    key: 'apiName',
 
 	  },
 	  {
 	    title: 'Environment',
-	    dataIndex: 'environment',
-	    key: 'environment',
+	    dataIndex: 'apiEnvironment',
+	    key: 'apiEnvironment',
 	    render: environment => {
 	    	let color = "#38b000"
 	    	if (environment === 'production') {
@@ -123,14 +133,25 @@ function Dashboard(props) {
 	      }]
 	  },
 	  {
+	    title: 'API Type',
+	    dataIndex: 'apiType',
+	    key: 'apiType'
+	  },
+	  {
+	    title: 'Created on',
+	    dataIndex: 'apiCreationDate',
+	    key: 'apiCreationDate',
+	    render: (timestamp) => timestamp.substring(0,16)
+	  },
+	  {
 	    title: 'Last Run on',
-	    dataIndex: 'lastrunon',
-	    key: 'lastrunon',
+	    dataIndex: 'apiLastRunOn',
+	    key: 'apiLastRunOn',
 	  },
 	  {
 	    title: 'Status',
-	    dataIndex: 'status',
-	    key: 'status',
+	    dataIndex: 'apiStatus',
+	    key: 'apiStatus',
 	    filters: [
 	      {
 	        text: 'STOPPED',
@@ -177,45 +198,9 @@ function Dashboard(props) {
 	    key: 'action',
 	    render: (text, record) => (
 	      <Space size="middle">
-	        <a href="/test/open">Open</a>
+	        <NavLink to={endpoints.getTestboardPrefix+record.testboardID}>Open</NavLink>
 	      </Space>
 	    ),
-	  },
-	];
-
-
-	const data = [
-	  {
-	    key: '1',
-	    testno: '1',
-	    apiname: 'ID Classification',
-	    environment: 'staging',
-	    lastrunon: '12-12-2021 12:12:12PM',
-	    status: 'stopped',
-	  },
-	  {
-	    key: '2',
-	    testno: '2',
-	    apiname: 'CIFAR Test',
-	    environment: 'production',
-	    lastrunon: '12-12-2021 12:12:12PM',
-	    status: 'running',
-	  },
-	  {
-	    key: '3',
-	    testno: '3',
-	    apiname: 'Image Net',
-	    environment: 'preproduction',
-	    lastrunon: '12-12-2021 12:12:12PM',
-	    status: 'completed',
-	  },
-	  {
-	    key: '4',
-	    testno: '4',
-	    apiname: 'Person Detection API',
-	    environment: 'development',
-	    lastrunon: '12-12-2021 12:12:12PM',
-	    status: 'ready',
 	  },
 	];
 
@@ -233,7 +218,7 @@ function Dashboard(props) {
 					</Button>
 				</div>
 
-				<Table className="testdash-table" columns={columns} dataSource={data} />
+				<Table className="testdash-table" pagination={{ pageSize: 20}} columns={columns} dataSource={testboards} />
 			</div>
 
 

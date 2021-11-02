@@ -35,11 +35,25 @@
 
 	text-decoration: underline;
 	color: #000;
+
 	margin: 0px 20px 0px 20px;
 }
 
+.masthead-nav-link-active{
+	font-size: 16px;
+	font-family: sans-serif;	
+	cursor: pointer;
+
+	border: none;
+	background-color: transparent;
+	color: #000;
+	text-decoration: none;
+	margin: 0px 20px 0px 20px;	
+}
+
+
 .masthead-nav-link:hover{
 	
-	text-decoration: underline;	
-
+	/*text-decoration: underline;	*/
+	/*color: #000;*/
 }

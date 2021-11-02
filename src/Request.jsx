@@ -2,14 +2,14 @@ import React, {useState,useEffect} from 'react';
 import { Input,Select,Button,Radio,Divider } from 'antd';
 
 import { PlusOutlined, MinusSquareOutlined } from '@ant-design/icons';
-import { useHistory,useParams } from "react-router-dom";
+// import { useHistory,useParams } from "react-router-dom";
 
 import "./Request.css"
 import "antd/dist/antd.css";
 
-import { authtoken,resetAuthToken } from './globals'
-import backend from "./backend"
-import axios from 'axios'
+import { authtoken } from './globals'
+// import backend from "./backend"
+// import axios from 'axios'
 
 import CodeEditor from '@uiw/react-textarea-code-editor';
 
@@ -134,7 +134,7 @@ function Request(props) {
 	return (
 			<div className="request-holder">
 
-				<Divider orientation="left">
+				<Divider orientation="left" style={{borderTopColor:"#AAA"}} >
 					<div className="request-title-horizontal-holder">
 						<div className="request-title">
 								Request {props.index+1}
@@ -184,7 +184,7 @@ function Request(props) {
 				
 
 				<div className="request-keyname">
-					HTTP headers
+					HTTP Headers
 				</div>
 
 				{

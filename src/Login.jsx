@@ -22,7 +22,7 @@ function Login(props) {
 
   // handle button click of login form
   const handleLogin = () => {
-  	console.log("hitting login API")
+  	// console.log("hitting login API")
   	const payload = { email: email.value , password : password.value };
     axios.post(backend.login, payload)
         .then(response => { 

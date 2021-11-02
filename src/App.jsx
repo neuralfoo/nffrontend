@@ -1,21 +1,28 @@
 import './App.css';
-import React,{useEffect} from 'react';
+import React,{useLayoutEffect} from 'react';
 import Login from './Login'
 import Masthead from './Masthead'
 import Dashboard from './Dashboard'
 import Testboard from './Testboard'
 
-import { authtoken } from './globals'
+// import { Spin } from 'antd';
+
+import { authtoken,setAuthToken } from './globals'
 
 import Cookies from 'universal-cookie';
 
 import endpoints from './endpoints';
 
+// import backend from "./backend"
+// import axios from 'axios'
+// import sendErrorNotification from "./notification"
+
+// import { useHistory } from "react-router-dom";
+
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Redirect
+  Route
 } from "react-router-dom";
 
 
@@ -26,81 +33,47 @@ function App() {
 
   const cookies = new Cookies();
 
-  useEffect(() => {
-   document.title = "Neural Foo"
+  // const history = useHistory();
+
+  useLayoutEffect(() => {
+    setAuthToken(cookies.get('token'))
+    document.title = "Neural Foo"
+    // console.log("Reloading app")
   }, []);
 
   return (
+
     <Router>
+      <div className="App">
+        <Masthead  cookies={cookies}/>
+        <Switch>
+          <Route path={endpoints.login}>
+            <Login  cookies={cookies}/>
+          </Route>
 
-    <div className="App">
-
-      <Switch>
-
-
-      <Route path={endpoints.login}>
-          {
-            cookies.get('token') ?
-              <Redirect to={endpoints.dashboard} />
-              :
-              <>
-              <Masthead  cookies={cookies} hideNav={true}/>
-              <Login  cookies={cookies}/>
-              </>
-          }
-      </Route>
-
-      <Route path={endpoints.dashboard}>
-          {
-            cookies.get('token') ? 
-            <>
-              <Masthead  cookies={cookies}/>
+          <Route path={endpoints.dashboard}>      
               <Dashboard  cookies={cookies}/>
-            </>
-            : 
-            <Redirect to={endpoints.login} />
-          }
-      </Route>
+          </Route>
 
-      <Route path={endpoints.newTestboard}>
-          {
-            cookies.get('token') ? 
-            <>
-              <Masthead  cookies={cookies}/>
-              <Testboard cookies={cookies} />
-            </>
-            : 
-            <Redirect to={endpoints.login} />
-          }
-      </Route>
+          <Route path={endpoints.newTestboard}>
+            <Testboard cookies={cookies} /> 
+          </Route>
 
-      <Route path={endpoints.getTestboard}>
-          {
-            cookies.get('token') ? 
-            <>
-              <Masthead  cookies={cookies}/>
-              <Testboard cookies={cookies} />
-            </>
-            : 
-            <Redirect to={endpoints.login} />
-          }
-      </Route>
+          <Route path={endpoints.getTestboard}>
+            <Testboard cookies={cookies} />
+          </Route>
 
-      <Route exact path="/">
-          <Masthead  cookies={cookies}/>
-      </Route>
+          <Route exact path="/">
+            Home
+          </Route>
 
-      <Route path="*">
-        <>
-          <Masthead  cookies={cookies}/>
-          404 - Page Not Found
-        </>
-      </Route>
-
-      </Switch>
-    </div>
-
+          <Route path="*">
+              404 - Page Not Found
+          </Route>
+        </Switch>
+      </div>
     </Router>
+    
   );
 }
 

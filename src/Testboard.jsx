@@ -1,7 +1,7 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useLayoutEffect} from 'react';
 import { Input,Select,Button,Radio } from 'antd';
 
-import { PlusOutlined, MinusSquareOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import { useHistory,useParams } from "react-router-dom";
 
 import "./Testboard.css"
@@ -13,12 +13,14 @@ import axios from 'axios'
 
 import sendErrorNotification from "./notification"
 
+import endpoints from "./endpoints"
+
 import Request from "./Request"
 
 function Testboard(props) {
 
 	authtoken.use()
- 	
+
 
 
 	let { testboardID } = useParams();
@@ -27,12 +29,13 @@ function Testboard(props) {
 	const [testboardReceived, setTestboardReceived] = useState(false);
 	const [testboardEdited, setTestboardEdited] = useState(false);
 	
-	const [executeOnce, setExecuteOnce] = useState(false);
+	// const [executeOnce, setExecuteOnce] = useState(false);
 
 
 	const history = useHistory();
 
 	const [apiName, setApiName] = useState("");
+	const [apiVisibility, setApiVisibility] = useState(null);
 	const [apiRequests, setApiRequests] = useState([]);
 
 	
@@ -71,7 +74,8 @@ function Testboard(props) {
 
 		setTestboard(response.data.testboard);
 		setApiName(response.data.testboard.apiName);
-		// setApiRequests(response.data.testboard.apiRequests);
+		setApiVisibility(response.data.testboard.visibility)
+		setApiRequests(response.data.testboard.apiRequests);
 	}
 
 	const getTestboard = () => {
@@ -95,27 +99,38 @@ function Testboard(props) {
 	            	// sendErrorNotification(error.response.data.message);
 	            	props.cookies.set('token', '', { path: '/' });
 		            resetAuthToken();
+		            history.push(endpoints.login);
 	            }
 			})
 		}
 	}
 
-	useEffect(() => {
+	useLayoutEffect(() => {
+		// console.log(props.cookies.get('token'))
+		// setAuthToken(props.cookies.get('token'))
 
-		if (executeOnce === false) {
-			if (testboardID === undefined){
-				newRequest()			
-			}
-			setExecuteOnce(true)
+		if (props.cookies.get('token') === "" || props.cookies.get('token') === undefined){
+			history.push(endpoints.login);
 		}
 
-		getTestboard()
-	});
+		if (testboardID === undefined){
+			newRequest()			
+		}
+		else{
+			getTestboard()
+		}
+	}, []);
 
 
 	const onChangeApiName = (e) => {
 		onFieldChange(e,"apiName") 
 		setApiName(e.target.value)
+		setTestboardEdited(true)
+	}
+
+	const onChangeApiVisibility = (e) => {
+		onFieldChange(e,"visibility") 
+		setApiVisibility(e.target.value)
 		setTestboardEdited(true)
 	}
 
@@ -134,22 +149,68 @@ function Testboard(props) {
 
 	    setTestboard(temp)
 		setTestboardEdited(true)
-
-
 	}
 
 
 	const createTestboard = () => {
 	  	
 	  	const payload = testboard;
+	  	payload.apiRequests = apiRequests
+
+	  	if (!payload.apiName){
+	  		sendErrorNotification("Testboard name cannot be empty")
+	  		return
+	  	}
+
+	  	if (!payload.apiType){
+	  		sendErrorNotification("Testboard type cannot be empty")
+	  		return
+	  	}
+
+	  	if (!payload.apiEnvironment){
+	  		sendErrorNotification("Testboard environment cannot be empty")
+	  		return
+	  	}
+
+	  	if (payload.apiVisibility !== null && payload.apiVisibility !== undefined){
+	  		sendErrorNotification("Please choose testboard visibility")
+	  		return
+	  	}
+
+	  	for (let i=0; i < payload.apiRequests.length; i++){
+	  		if (!payload.apiRequests[i]["apiHttpMethod"]){
+	  			sendErrorNotification("Please choose HTTP Method")
+		  		return
+	  		}
+	  		if (!payload.apiRequests[i]["apiEndpoint"]){
+	  			sendErrorNotification("API Endpoint cannot be empty")
+		  		return
+	  		}
+	  		if (!payload.apiRequests[i]["apiResponseBody"]){
+	  			sendErrorNotification("API Response cannot be empty")
+		  		return
+	  		}
+	  		if (!payload.apiRequests[i]["apiInputDataType"]){
+	  			sendErrorNotification("Please choose API input data type")
+		  		return
+	  		}
+	  		if (!payload.apiRequests[i]["apiRequestBodyType"]){
+	  			sendErrorNotification("Please choose API request body type")
+		  		return
+	  		}
+	  		if (!payload.apiRequests[i]["apiResponseBodyType"]){
+	  			sendErrorNotification("Please choose response body type")
+		  		return
+	  		}
+	  	}
+
 	    axios.post(backend.createTestboard, payload,
 	    		{ 
 	    			headers: {"Authorization" : props.cookies.get('token')}
 	    		} 
 	    	)
 	        .then(response => { 
-
-	        	history.push('/testboard/details/'+response.data.id); 
+	        	history.push(endpoints.getTestboardPrefix+response.data.id); 
 	        })
 	        .catch(error => {
 	            
@@ -158,7 +219,6 @@ function Testboard(props) {
 	            }
 
 	            if (error.response.status === 401){
-	            	// sendErrorNotification(error.response.data.message);
 	            	props.cookies.set('token', '', { path: '/' });
 		            resetAuthToken();
 	            }
@@ -168,13 +228,15 @@ function Testboard(props) {
   	const updateTestboard = () => {
 	  	
 	  	const payload = testboard;
+
+	  	payload.apiRequests = apiRequests
+
 	    axios.post(backend.updateTestboard, payload,
 	    		{ 
 	    			headers: {"Authorization" : props.cookies.get('token')}
 	    		} 
 	    	)
 	        .then(response => { 
-	        	// history.push('/testboard/details/'+response.data.id);
 	        	setTestboardEdited(false) 
 	        })
 	        .catch(error => {
@@ -187,6 +249,7 @@ function Testboard(props) {
 	            	// sendErrorNotification(error.response.data.message);
 	            	props.cookies.set('token', '', { path: '/' });
 		            resetAuthToken();
+		            // history.push(endpoints.login);
 	            }
 	        });
   	}
@@ -212,26 +275,27 @@ function Testboard(props) {
 
 				<div className="testboard-key-value-holder">
 					<div className="testboard-keyname">
-						API Name
+						Testboard name
 					</div>
 					<div className="testboard-valuename">
 						<Input 
-							placeholder="Type your API name here ..." 
+							placeholder="Type your testboard name here ..." 
 							size="large" className="testboard-input" 
-							value={testboard ? testboard.apiName : "" } 
+							value={apiName} 
 							onChange = {onChangeApiName} bordered={true} />
 					</div>
 				</div>
 
+					
 
 				<div className="testboard-horizontal-holder">
 					<div className="testboard-key-value-holder">
 						<div className="testboard-keyname">
-							API Type
+							Testboard type
 						</div>
 						<div className="testboard-valuename">
 							<Select 
-								placeholder="What does it do" size="medium" 
+								placeholder="What does it do?" size="medium" 
 								className="testboard-select" 
 								value={testboard ? testboard.apiType : "" } 
 								onChange = {(evn) => onFieldChange(evn,"apiType")} >
@@ -243,14 +307,13 @@ function Testboard(props) {
 						</div>
 					</div>
 
-
 					<div className="testboard-key-value-holder">
 						<div className="testboard-keyname">
-							API Environment
+							Testboard environment
 						</div>
 						<div className="testboard-valuename">
 							<Select 
-								placeholder="Where is it hosted" size="medium" 
+								placeholder="Where is it hosted?" size="medium" 
 								className="testboard-select"  
 								value={testboard ? testboard.apiEnvironment : "" } 
 								onChange = {(evn) => onFieldChange(evn,"apiEnvironment")} >
@@ -264,6 +327,26 @@ function Testboard(props) {
 					</div>
 				</div>
 
+				<div className="testboard-key-value-holder">
+					<div className="testboard-keyname">
+						Testboard visibility
+					</div>
+					<div className="testboard-valuename">
+						<Radio.Group className="testboard-radio" 
+						value={apiVisibility} 
+						onChange = {onChangeApiVisibility} 
+						>
+								<Radio value="public" className="testboard-radio-button-text" >
+									<b>Public</b> (anyone in your organisation can view and edit this testboard)
+								</Radio>
+								<Radio value="private" className="testboard-radio-button-text">
+									<b>Private</b> (only you can view and edit this testboard)
+								</Radio>
+						</Radio.Group>
+					</div>
+				</div>
+
+
 				{
 					
 					apiRequests.map((item,index) => (
@@ -276,6 +359,8 @@ function Testboard(props) {
 						icon={<PlusOutlined />} size="medium" onClick={newRequest}>
 					Add Request
 				</Button>
+
+
 
 				{
 					testboardID ?
