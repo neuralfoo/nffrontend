@@ -11,7 +11,9 @@ import { authtoken,resetAuthToken } from './globals'
 import backend from "./backend"
 import axios from 'axios'
 
-import sendErrorNotification from "./notification"
+
+import notif from "./notification"
+
 
 import endpoints from "./endpoints"
 
@@ -92,11 +94,11 @@ function Testboard(props) {
 			.catch(function (error) {
 			
 				if (error.response.status === 400){
-		            sendErrorNotification(error.response.data.message)
+		            notif.error(error.response.data.message)
 	            }
 
 	            if (error.response.status === 401){
-	            	// sendErrorNotification(error.response.data.message);
+	            	// notif.error(error.response.data.message);
 	            	props.cookies.set('token', '', { path: '/' });
 		            resetAuthToken();
 		            history.push(endpoints.login);
@@ -158,48 +160,48 @@ function Testboard(props) {
 	  	payload.apiRequests = apiRequests
 
 	  	if (!payload.apiName){
-	  		sendErrorNotification("Testboard name cannot be empty")
+	  		notif.error("Testboard name cannot be empty")
 	  		return
 	  	}
 
 	  	if (!payload.apiType){
-	  		sendErrorNotification("Testboard type cannot be empty")
+	  		notif.error("Testboard type cannot be empty")
 	  		return
 	  	}
 
 	  	if (!payload.apiEnvironment){
-	  		sendErrorNotification("Testboard environment cannot be empty")
+	  		notif.error("Testboard environment cannot be empty")
 	  		return
 	  	}
 
 	  	if (payload.apiVisibility !== null && payload.apiVisibility !== undefined){
-	  		sendErrorNotification("Please choose testboard visibility")
+	  		notif.error("Please choose testboard visibility")
 	  		return
 	  	}
 
 	  	for (let i=0; i < payload.apiRequests.length; i++){
 	  		if (!payload.apiRequests[i]["apiHttpMethod"]){
-	  			sendErrorNotification("Please choose HTTP Method")
+	  			notif.error("Please choose HTTP Method")
 		  		return
 	  		}
 	  		if (!payload.apiRequests[i]["apiEndpoint"]){
-	  			sendErrorNotification("API Endpoint cannot be empty")
+	  			notif.error("API Endpoint cannot be empty")
 		  		return
 	  		}
 	  		if (!payload.apiRequests[i]["apiResponseBody"]){
-	  			sendErrorNotification("API Response cannot be empty")
+	  			notif.error("API Response cannot be empty")
 		  		return
 	  		}
 	  		if (!payload.apiRequests[i]["apiInputDataType"]){
-	  			sendErrorNotification("Please choose API input data type")
+	  			notif.error("Please choose API input data type")
 		  		return
 	  		}
 	  		if (!payload.apiRequests[i]["apiRequestBodyType"]){
-	  			sendErrorNotification("Please choose API request body type")
+	  			notif.error("Please choose API request body type")
 		  		return
 	  		}
 	  		if (!payload.apiRequests[i]["apiResponseBodyType"]){
-	  			sendErrorNotification("Please choose response body type")
+	  			notif.error("Please choose response body type")
 		  		return
 	  		}
 	  	}
@@ -210,12 +212,13 @@ function Testboard(props) {
 	    		} 
 	    	)
 	        .then(response => { 
-	        	history.push(endpoints.getTestboardPrefix+response.data.id); 
+	        	history.push(endpoints.getTestboardPrefix+response.data.id);
+	        	notif.success("Testboard created!")
 	        })
 	        .catch(error => {
 	            
 	            if (error.response.status === 400){
-		            sendErrorNotification(error.response.data.message)
+		            notif.error(error.response.data.message)
 	            }
 
 	            if (error.response.status === 401){
@@ -242,11 +245,11 @@ function Testboard(props) {
 	        .catch(error => {
 	            
 	            if (error.response.status === 400){
-		            sendErrorNotification(error.response.data.message)
+		            notif.error(error.response.data.message)
 	            }
 
 	            if (error.response.status === 401){
-	            	// sendErrorNotification(error.response.data.message);
+	            	// notif.error(error.response.data.message);
 	            	props.cookies.set('token', '', { path: '/' });
 		            resetAuthToken();
 		            // history.push(endpoints.login);

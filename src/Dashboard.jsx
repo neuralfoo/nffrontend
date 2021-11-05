@@ -9,7 +9,7 @@ import endpoints from "./endpoints"
 import "./Dashboard.css"
 import "antd/dist/antd.css";
 
-import sendErrorNotification from "./notification"
+import notif from "./notification"
 
 
 import { authtoken,resetAuthToken } from './globals'
@@ -54,11 +54,11 @@ function Dashboard(props) {
 		        .catch(error => {
 		            
 		            if (error.response.status === 400){
-			            sendErrorNotification(error.response.data.message)
+			            notif.error(error.response.data.message)
 		            }
 
 		            if (error.response.status === 401){
-		            	// sendErrorNotification(error.response.data.message);
+
 		            	props.cookies.set('token', '', { path: '/' });
 			            resetAuthToken();
 						history.push(endpoints.login); 
@@ -138,13 +138,18 @@ function Dashboard(props) {
 	    key: 'apiType'
 	  },
 	  {
+	    title: 'Created by',
+	    dataIndex: 'creator',
+	    key: 'creator'
+	  },
+	  {
 	    title: 'Created on',
 	    dataIndex: 'apiCreationDate',
 	    key: 'apiCreationDate',
 	    render: (timestamp) => timestamp.substring(0,16)
 	  },
 	  {
-	    title: 'Last Run on',
+	    title: 'Last run on',
 	    dataIndex: 'apiLastRunOn',
 	    key: 'apiLastRunOn',
 	  },

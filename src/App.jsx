@@ -1,23 +1,17 @@
 import './App.css';
 import React,{useLayoutEffect} from 'react';
-import Login from './Login'
-import Masthead from './Masthead'
-import Dashboard from './Dashboard'
-import Testboard from './Testboard'
+import Login from './Login';
+import Signup from './Signup';
+import Masthead from './Masthead';
+import Dashboard from './Dashboard';
+import Testboard from './Testboard';
+import Settings from './Settings';
 
-// import { Spin } from 'antd';
-
-import { authtoken,setAuthToken } from './globals'
+import { authtoken,setAuthToken } from './globals';
 
 import Cookies from 'universal-cookie';
 
 import endpoints from './endpoints';
-
-// import backend from "./backend"
-// import axios from 'axios'
-// import sendErrorNotification from "./notification"
-
-// import { useHistory } from "react-router-dom";
 
 import {
   BrowserRouter as Router,
@@ -33,12 +27,9 @@ function App() {
 
   const cookies = new Cookies();
 
-  // const history = useHistory();
-
   useLayoutEffect(() => {
     setAuthToken(cookies.get('token'))
     document.title = "Neural Foo"
-    // console.log("Reloading app")
   }, []);
 
   return (
@@ -51,8 +42,20 @@ function App() {
             <Login  cookies={cookies}/>
           </Route>
 
+          <Route path={endpoints.signup}>
+            <Signup  cookies={cookies}/>
+          </Route>
+
+          <Route path={endpoints.onboardMember}>
+            <Signup  cookies={cookies}/>
+          </Route>
+
           <Route path={endpoints.dashboard}>      
-              <Dashboard  cookies={cookies}/>
+            <Dashboard  cookies={cookies} />
+          </Route>
+
+          <Route path={endpoints.settings}>      
+            <Settings  cookies={cookies} />
           </Route>
 
           <Route path={endpoints.newTestboard}>
@@ -73,7 +76,7 @@ function App() {
         </Switch>
       </div>
     </Router>
-    
+
   );
 }
 

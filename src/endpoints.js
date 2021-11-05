@@ -1,13 +1,20 @@
 const endpoints = {}
 
-endpoints.host = ""
+endpoints.host = "http://localhost:3000"
 
-endpoints.login = endpoints.host + "/login"
-endpoints.dashboard = endpoints.host + "/dashboard"
+endpoints.login =  "/login"
+endpoints.signup =  "/signup"
 
-endpoints.newTestboard = endpoints.host + "/testboard/new"
-endpoints.getTestboard = endpoints.host + "/testboard/get/:testboardID"
+endpoints.dashboard =  "/dashboard"
+endpoints.settings =  "/settings"
 
-endpoints.getTestboardPrefix = "/testboard/get/"
+endpoints.newTestboard =  "/testboard/new"
+endpoints.getTestboard =  "/testboard/get/:testboardID"
+
+endpoints.getTestboardPrefix =  "/testboard/get/"
+
+endpoints.onboardMemberPrefix = endpoints.host + "/onboard/"
+endpoints.onboardMember =  "/onboard/:referralCode"
+
 
 export default endpoints

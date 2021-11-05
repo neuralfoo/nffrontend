@@ -1,0 +1,24 @@
+accounts page
+
+General
+	Change First Name
+	Change Last Name
+	Current emailID 
+	Sign Up Date
+
+Security
+	Update Password
+
+Members
+	List all members attached to this organization
+		if admin allow to change role or every member
+
+Plans
+	List all plans 
+
+Billing
+	saved payment options
+	past billing activity
+
+
+Add validity to onboarding links
