@@ -11,9 +11,9 @@ import { authtoken,resetAuthToken } from './globals'
 import backend from "./backend"
 import axios from 'axios'
 
+import ImageClassificationInputTable from "./ImageClassificationInputTable"
 
 import notif from "./notification"
-
 
 import endpoints from "./endpoints"
 
@@ -258,7 +258,7 @@ function Testboard(props) {
   	}
 
   	const discardTestboard = () => {
-  		history.push('/dashboard'); 
+  		history.push(endpoints.dashboard); 
   	}
 
 
@@ -388,6 +388,19 @@ function Testboard(props) {
 					</div>
 
 				}
+
+				{
+
+					testboardID ? 
+
+					<div className="testboard-vertical-holder">
+						<ImageClassificationInputTable testboardID={testboardID} cookies={props.cookies} />		
+					</div>
+
+					: null
+				}
+
+
 			</div>
 
 		</div>

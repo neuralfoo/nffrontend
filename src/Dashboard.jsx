@@ -222,11 +222,8 @@ function Dashboard(props) {
 						Create New Test
 					</Button>
 				</div>
-
 				<Table className="testdash-table" pagination={{ pageSize: 20}} columns={columns} dataSource={testboards} />
 			</div>
-
-
 		</div>
 		)
 

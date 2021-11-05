@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useLayoutEffect} from 'react';
 import { Input,Select,Button,Radio,Divider } from 'antd';
 
 import { PlusOutlined, MinusSquareOutlined } from '@ant-design/icons';
@@ -41,7 +41,7 @@ function Request(props) {
 		props.setTestboardEdited(true)
 	}
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		setApiEndpoint(props.data.apiEndpoint)
 		setApiHeader(props.data.apiHeader)
 		setApiHttpMethod(props.data.apiHttpMethod)
@@ -50,7 +50,7 @@ function Request(props) {
 		setApiResponseBodyType(props.data.apiResponseBodyType)
 		setApiRequestBody(props.data.apiRequestBody)
 		setApiResponseBody(props.data.apiResponseBody)
-	});
+	},[]);
 
 	const onChangeApiInputDataType = (e) => {
 		props.onChange(props.index,"apiInputDataType",e.target.value) 

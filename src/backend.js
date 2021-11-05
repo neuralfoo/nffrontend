@@ -14,5 +14,7 @@ backend.updateUserDetails = backend.host + "/app/user/details/update"
 backend.changePassword = backend.host + "/app/user/changePassword"
 backend.getReferralCode = backend.host + "/app/organization/referralCode/get"
 backend.refreshReferralCode = backend.host + "/app/organization/referralCode/refresh"
+backend.uploadImageFile = backend.host + "/app/fs/image/upload"
+
 
 export default backend
