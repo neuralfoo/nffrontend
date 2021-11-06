@@ -3,6 +3,11 @@ import { UploadOutlined } from '@ant-design/icons';
 
 import backend from "./backend"
 
+message.config({
+  duration: 2,
+  maxCount: 1
+});
+
 function FileUpload(props){
 
 	const uploadprops = {
@@ -15,7 +20,7 @@ function FileUpload(props){
 	  data:{testboardID : props.testboardID},
 	  onChange(info) {
 	    if (info.file.status !== 'uploading') {
-	      console.log(info.file, info.fileList);
+	      // console.log(info.file, info.fileList);
 	    }
 	    if (info.file.status === 'done') {
 	      message.success(`${info.file.name} file uploaded successfully`);

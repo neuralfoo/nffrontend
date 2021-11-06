@@ -11,7 +11,7 @@ import { authtoken,resetAuthToken } from './globals'
 import backend from "./backend"
 import axios from 'axios'
 
-import ImageClassificationInputTable from "./ImageClassificationInputTable"
+import TestFilesTable from "./TestFilesTable"
 
 import notif from "./notification"
 
@@ -224,6 +224,7 @@ function Testboard(props) {
 	            if (error.response.status === 401){
 	            	props.cookies.set('token', '', { path: '/' });
 		            resetAuthToken();
+		            history.push(endpoints.login);
 	            }
 	        });
   	}
@@ -252,7 +253,7 @@ function Testboard(props) {
 	            	// notif.error(error.response.data.message);
 	            	props.cookies.set('token', '', { path: '/' });
 		            resetAuthToken();
-		            // history.push(endpoints.login);
+		            history.push(endpoints.login);
 	            }
 	        });
   	}
@@ -301,7 +302,8 @@ function Testboard(props) {
 								placeholder="What does it do?" size="medium" 
 								className="testboard-select" 
 								value={testboard ? testboard.apiType : "" } 
-								onChange = {(evn) => onFieldChange(evn,"apiType")} >
+								onChange = {(evn) => onFieldChange(evn,"apiType")} 
+								disabled = {testboardReceived} >
 
 								<Option value="imageclassification">Image Classification</Option>
 								<Option value="imagesegmentation">Image Segmentation</Option>
@@ -394,7 +396,7 @@ function Testboard(props) {
 					testboardID ? 
 
 					<div className="testboard-vertical-holder">
-						<ImageClassificationInputTable testboardID={testboardID} cookies={props.cookies} />		
+						<TestFilesTable testboardID={testboardID} cookies={props.cookies} />		
 					</div>
 
 					: null

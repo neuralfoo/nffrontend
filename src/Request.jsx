@@ -236,11 +236,11 @@ function Request(props) {
 
 					<div className="request-key-value-holder">
 						<div className="request-keyname">
-							API Request Body
+							API Request Body Template
 						</div>
 						
 						<Radio.Group className="request-requestbodytype" 
-							value={apiRequestBodyType } 
+							value = {apiRequestBodyType} 
 							onChange = {onChangeApiRequestBodyType} 
 							>
 						  <Radio value="json" className="request-radio-button-text" >JSON</Radio>
@@ -264,7 +264,7 @@ function Request(props) {
 
 					<div className="request-key-value-holder">
 						<div className="request-keyname">
-							API Response Body
+							API Response Body Template
 						</div>
 						<Radio.Group className="request-requestbodytype" 
 
