@@ -93,7 +93,7 @@ function SelectClass (props){
 
   useEffect( ()=>{
     setItems(props.classNamesList)
-    // console.log("use effect",props.classNamesList)
+    // console.log("use effect",props.index,props.selectedClass)
 
     // if (manualChange === false){
     setSelectedClass(props.selectedClass)

@@ -71,13 +71,14 @@ function TestFilesTable(props) {
 	}
 
 	function updateClass(i,className){
+		
 		var t = [...files]
+
 		t[i]["className"] = className
 		t[i]["annotation"] = className
+
+		setFiles(t)
 		
-		setFiles(t)		
-		
-		// console.log(files)
 	}
 
 	const getTestImagesForTestboard = () => {
@@ -181,8 +182,8 @@ function TestFilesTable(props) {
 	    title: 'Classname',
 	    dataIndex: 'className',
 	    key: 'className',
-	    render: (className,record, index) => (
-	    	<SelectClass cookies={props.cookies} updateClass={updateClass} index={index} testboardID={props.testboardID} selectedClass={className} imageID={record["imageID"]} classNamesList={classNamesList} addClass={addClass} />
+	    render: (className,record) => (
+	    	<SelectClass cookies={props.cookies} updateClass={updateClass} index={record["key"]-1} testboardID={props.testboardID} selectedClass={className} imageID={record["imageID"]} classNamesList={classNamesList} addClass={addClass} />
 	    	)
 	  },
 	  {
