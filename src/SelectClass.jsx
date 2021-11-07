@@ -1,5 +1,5 @@
-import React, {useState,useLayoutEffect} from 'react';
-import { Select, Divider, Input } from 'antd';
+import React, {useState,useLayoutEffect,useEffect} from 'react';
+import { Select, Divider, Input,Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import notif from "./notification"
 
@@ -17,7 +17,7 @@ const { Option } = Select;
 
 function SelectClass (props){
 
-  let index = 0;
+  // console.log(props.index)
 
   const history = useHistory();
 
@@ -43,7 +43,7 @@ function SelectClass (props){
       return
     }
 
-    setItems([...items, name])    
+    setItems(items => ([...items, name]))    
     props.addClass(name)
     setName('')
   };
@@ -63,6 +63,9 @@ function SelectClass (props){
     )
       .then(response => {
         setSelectedClass(className)
+        props.updateClass(props.index,className)
+        notif.success("Class change saved!")
+        // setManualChange(false)
       })
       .catch(error => {
           
@@ -83,17 +86,18 @@ function SelectClass (props){
   }
 
   const changeClass = (e) => {
-    console.log(manualChange)
-    setManualChange(true)
+    // console.log(manualChange)
+    // setManualChange(true)
     updateClassForImage(props.imageID,e)
   }
 
-  useLayoutEffect( ()=>{
+  useEffect( ()=>{
     setItems(props.classNamesList)
-    console.log("use effect",manualChange)
-    if (manualChange === false){
-      setSelectedClass(props.selectedClass)  
-    }
+    // console.log("use effect",props.classNamesList)
+
+    // if (manualChange === false){
+    setSelectedClass(props.selectedClass)
+    // }
   })
   
   return (
@@ -108,12 +112,12 @@ function SelectClass (props){
           <Divider style={{ margin: '4px 0' }} />
           <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
             <Input style={{ flex: 'auto' }} value={name} onChange={onNameChange} />
-            <a
+            <Button type="link"
               style={{ flex: 'none', padding: '8px', display: 'block', cursor: 'pointer' }}
               onClick={addItem}
             >
               <PlusOutlined /> Add class
-            </a>
+            </Button>
           </div>
         </div>
       )}

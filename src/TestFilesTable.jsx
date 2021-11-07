@@ -1,4 +1,4 @@
-import React, {useState,useLayoutEffect} from 'react';
+import React, {useState,useLayoutEffect,useEffect} from 'react';
 import { Table,Space,Modal, Button } from 'antd';
 
 import { useHistory,NavLink } from "react-router-dom";
@@ -43,20 +43,41 @@ function TestFilesTable(props) {
 	};
 
 	function generateClassNamesList(data){
+		
+		var temp = [];
+
 		for (let i = 0; i < data.length; i++) {
 			if (data[i]["className"] == null){
 				continue
 			}
-			if (!classNamesList.includes(data[i]["className"])) {
-				setClassNamesList([...classNamesList,data[i]["className"]])
+			// console.log(temp,data[i]["className"],temp.includes(data[i]["className"]))
+			if (!temp.includes(data[i]["className"])) {
+				temp.push(data[i]["className"])
 			}
 		}
 
+
+		setClassNamesList(temp)
 		setFiles(data)
+		// console.log(classNamesList)
+		// console.log(data)
 	}
 
 	function addClass(className){
-		setClassNamesList([...classNamesList,className])
+		var t = [...classNamesList]
+		t.push(className)
+		setClassNamesList(t)
+		// console.log(classNamesList)
+	}
+
+	function updateClass(i,className){
+		var t = [...files]
+		t[i]["className"] = className
+		t[i]["annotation"] = className
+		
+		setFiles(t)		
+		
+		// console.log(files)
 	}
 
 	const getTestImagesForTestboard = () => {
@@ -128,6 +149,7 @@ function TestFilesTable(props) {
 		getTestImagesForTestboard()
 	},[]);
 
+
 	const columns = [
 	  {
 	    title: '#',
@@ -159,8 +181,8 @@ function TestFilesTable(props) {
 	    title: 'Classname',
 	    dataIndex: 'className',
 	    key: 'className',
-	    render: (className,record) => (
-	    	<SelectClass cookies={props.cookies} testboardID={props.testboardID} selectedClass={className} imageID={record["imageID"]} classNamesList={classNamesList} addClass={addClass} />
+	    render: (className,record, index) => (
+	    	<SelectClass cookies={props.cookies} updateClass={updateClass} index={index} testboardID={props.testboardID} selectedClass={className} imageID={record["imageID"]} classNamesList={classNamesList} addClass={addClass} />
 	    	)
 	  },
 	  {
