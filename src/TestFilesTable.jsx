@@ -14,6 +14,7 @@ import notif from "./notification"
 import endpoints from "./endpoints"
 
 import FileUpload from "./FileUpload"
+import SelectClass from "./SelectClass"
 
 function TestFilesTable(props) {
 
@@ -24,6 +25,8 @@ function TestFilesTable(props) {
 	const [files, setFiles] = useState([]);
 
 	const [isModalVisible, setIsModalVisible] = useState(false);
+
+	const [classNamesList,setClassNamesList] = useState([])
 
 	const showModal = () => {
 		setIsModalVisible(true);
@@ -39,6 +42,23 @@ function TestFilesTable(props) {
 		setIsModalVisible(false);
 	};
 
+	function generateClassNamesList(data){
+		for (let i = 0; i < data.length; i++) {
+			if (data[i]["className"] == null){
+				continue
+			}
+			if (!classNamesList.includes(data[i]["className"])) {
+				setClassNamesList([...classNamesList,data[i]["className"]])
+			}
+		}
+
+		setFiles(data)
+	}
+
+	function addClass(className){
+		setClassNamesList([...classNamesList,className])
+	}
+
 	const getTestImagesForTestboard = () => {
   	
 	  	const payload = {testboardID:props.testboardID};
@@ -49,22 +69,59 @@ function TestFilesTable(props) {
     		} 
     	)
         .then(response => { 
-        	setFiles(response.data.files)
+        	// console.log(response.data.files)
+        	generateClassNamesList(response.data.files)
         })
         .catch(error => {
             
-            if (error.response.status === 400){
-	            notif.error(error.response.data.message)
-            }
+            if (error.response !== undefined){
 
-            if (error.response.status === 401){
-            	// notif.error(error.response.data.message);
-            	props.cookies.set('token', '', { path: '/' });
-	            resetAuthToken();
-	            history.push(endpoints.login);
-            }
+            	if (error.response.status === 400){
+	            notif.error(error.response.data.message)
+	            }
+
+	            if (error.response.status === 401){
+	            	// notif.error(error.response.data.message);
+	            	props.cookies.set('token', '', { path: '/' });
+		            resetAuthToken();
+		            history.push(endpoints.login);
+	            }	
+            } 
         });
-  	
+	}
+
+
+	function deleteImage(imageID) {
+		const payload = {testboardID:props.testboardID,imageIDs:[imageID]};
+
+	    axios.post(backend.deleteTestFiles, payload,
+    		{ 
+    			headers: {"Authorization" : props.cookies.get('token')}
+    		} 
+    	)
+        .then(response => {
+        	var deleted = response.data.deleteCount.toString()
+        	var total = response.data.originalCount.toString()
+
+        	notif.success("Deleted "+deleted+" out of "+total+" file(s)")
+        	getTestImagesForTestboard()
+        })
+        .catch(error => {
+            
+            if (error.response !== undefined){
+
+            	if (error.response.status === 400){
+	            notif.error(error.response.data.message)
+	            }
+
+	            if (error.response.status === 401){
+	            	// notif.error(error.response.data.message);
+	            	props.cookies.set('token', '', { path: '/' });
+		            resetAuthToken();
+		            history.push(endpoints.login);
+	            }	
+            } 
+        });
 	}
 
 	useLayoutEffect(() => {
@@ -101,7 +158,10 @@ function TestFilesTable(props) {
 	  {
 	    title: 'Classname',
 	    dataIndex: 'className',
-	    key: 'className'
+	    key: 'className',
+	    render: (className,record) => (
+	    	<SelectClass cookies={props.cookies} testboardID={props.testboardID} selectedClass={className} imageID={record["imageID"]} classNamesList={classNamesList} addClass={addClass} />
+	    	)
 	  },
 	  {
 	    title: 'Action',
@@ -109,7 +169,7 @@ function TestFilesTable(props) {
 	    render: (text, record) => (
 	      <Space size="middle">
 	        <a target="_blank" href={backend.getImageFile+record["imageID"]+"/"+record["filename"]}>Preview</a>
-	        <NavLink to="#">Delete</NavLink>
+	        <Button type="link" onClick={() => deleteImage(record["imageID"])}>Delete</Button>
 	      </Space>
 	    ),
 	  },

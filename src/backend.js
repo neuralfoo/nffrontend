@@ -16,7 +16,8 @@ backend.getReferralCode 	= backend.host + "/app/organization/referralCode/get"
 backend.refreshReferralCode = backend.host + "/app/organization/referralCode/refresh"
 backend.uploadImageFile 	= backend.host + "/app/fs/image/upload"
 backend.getImageFile 		= backend.host + "/app/fs/image/"
-backend.getTestFiles 		= backend.host + "/app/testboard/testFiles"
-
+backend.getTestFiles 		= backend.host + "/app/testboard/testFiles/list"
+backend.deleteTestFiles 	= backend.host + "/app/testboard/testFiles/delete"
+backend.updateAnnotation 	= backend.host + "/app/testboard/testFiles/annotation/update"
 
 export default backend

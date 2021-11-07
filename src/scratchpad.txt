@@ -21,4 +21,7 @@ Billing
 	past billing activity
 
 
+Tech Debt
 Add validity to onboarding links
+Add multi delete for Test files table
+Add default class while image upload for image classification
