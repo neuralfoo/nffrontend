@@ -123,11 +123,13 @@
 .request-requestbody{
 	/*width: 50%;*/
 	width: 550px;
-	height: 150px;
+	min-height: 150px;
+	/*max-height: 350px;*/
 	font-size: 16px;
 	background-color: #fff;
 	border: 1px solid #ddd;
 	font-family: "Lucida Console", "Courier New", monospace;
+	/*overflow: scroll;*/
 }
 
 .request-requestbodytype{

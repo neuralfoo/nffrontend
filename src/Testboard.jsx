@@ -12,6 +12,7 @@ import backend from "./backend"
 import axios from 'axios'
 
 import TestFilesTable from "./TestFilesTable"
+import AccuracyTable from "./AccuracyTable"
 
 import notif from "./notification"
 
@@ -403,7 +404,8 @@ function Testboard(props) {
 					testboardID ? 
 
 					<div className="testboard-vertical-holder">
-						<TestFilesTable testboardID={testboardID} cookies={props.cookies} />		
+						<TestFilesTable testboardID={testboardID} cookies={props.cookies} />
+						<AccuracyTable testboardID={testboardID} cookies={props.cookies} />
 					</div>
 
 					: null

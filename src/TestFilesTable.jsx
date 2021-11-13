@@ -1,7 +1,7 @@
-import React, {useState,useLayoutEffect,useEffect} from 'react';
+import React, {useState,useLayoutEffect} from 'react';
 import { Table,Space,Modal, Button } from 'antd';
 
-import { useHistory,NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import "./TestFilesTable.css"
 import "antd/dist/antd.css";
@@ -156,7 +156,7 @@ function TestFilesTable(props) {
 	    title: '#',
 	    dataIndex: 'key',
 	    key: 'key',
-	    sorter: (a, b) => parseInt(a.testno) - parseInt(b.testno)
+	    sorter: (a, b) => parseInt(a.key) - parseInt(b.key)
 	  },
 	  {
 	    title: 'Filename',
@@ -179,7 +179,7 @@ function TestFilesTable(props) {
 	    key: 'fileType'
 	  },
 	  {
-	    title: 'Classname',
+	    title: 'Ground Truth',
 	    dataIndex: 'className',
 	    key: 'className',
 	    render: (className,record) => (
@@ -191,7 +191,7 @@ function TestFilesTable(props) {
 	    key: 'action',
 	    render: (text, record) => (
 	      <Space size="middle">
-	        <a target="_blank" href={backend.getImageFile+record["imageID"]+"/"+record["filename"]}>Preview</a>
+	        <a target="_blank" rel="noreferrer" href={backend.getImageFile+record["imageID"]+"/"+record["filename"]}>Preview</a>
 	        <Button type="link" onClick={() => deleteImage(record["imageID"])}>Delete</Button>
 	      </Space>
 	    ),

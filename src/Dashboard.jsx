@@ -80,7 +80,7 @@ function Dashboard(props) {
 	    title: 'Test No.',
 	    dataIndex: 'key',
 	    key: 'key',
-	    sorter: (a, b) => parseInt(a.testno) - parseInt(b.testno)
+	    sorter: (a, b) => parseInt(a.key) - parseInt(b.key)
 	  },
 	  {
 	    title: 'API Name',

@@ -1,4 +1,4 @@
-import React, {useState,useLayoutEffect,useEffect} from 'react';
+import React, {useState,useEffect} from 'react';
 import { Select, Divider, Input,Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import notif from "./notification"
@@ -17,15 +17,12 @@ const { Option } = Select;
 
 function SelectClass (props){
 
-  // console.log(props.index)
 
   const history = useHistory();
 
   const [name,setName] = useState("")
   const [items,setItems] = useState(props.classNamesList)
   const [selectedClass,setSelectedClass] = useState(props.selectedClass)
-
-  const [manualChange,setManualChange] = useState(false)
 
 
   const onNameChange = event => {
@@ -34,7 +31,7 @@ function SelectClass (props){
 
   const addItem = () => {
 
-    if (name == ""){
+    if (name === ""){
       notif.error("Class name cannot be empty")
       return
     }
@@ -65,7 +62,7 @@ function SelectClass (props){
         setSelectedClass(className)
         props.updateClass(props.index,className)
         notif.success("Class change saved!")
-        // setManualChange(false)
+
       })
       .catch(error => {
           
@@ -86,18 +83,13 @@ function SelectClass (props){
   }
 
   const changeClass = (e) => {
-    // console.log(manualChange)
-    // setManualChange(true)
+
     updateClassForImage(props.imageID,e)
   }
 
   useEffect( ()=>{
     setItems(props.classNamesList)
-    // console.log("use effect",props.index,props.selectedClass)
-
-    // if (manualChange === false){
     setSelectedClass(props.selectedClass)
-    // }
   })
   
   return (

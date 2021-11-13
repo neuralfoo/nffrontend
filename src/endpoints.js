@@ -16,5 +16,6 @@ endpoints.getTestboardPrefix =  "/testboard/get/"
 endpoints.onboardMemberPrefix = endpoints.host + "/onboard/"
 endpoints.onboardMember =  "/onboard/:referralCode"
 
+endpoints.accuracyTestReport = "/report/accuracy/"
 
 export default endpoints

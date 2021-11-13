@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 // import Button from '@material-ui/core/Button';
 
-import { Input,Button,Typography } from 'antd';
+import { Button,Typography } from 'antd';
 
 
 
@@ -27,7 +27,7 @@ function OrganizationSettings(props) {
   // const [onboardingLink, setOnboardingLink] = useState('');
   const [organization, setOrganization] = useState('');
 
-  const [detailsChanged,setDetailsChanged] = useState(false)
+
   
 
   const useFormInput = initialValue => {
@@ -40,7 +40,7 @@ function OrganizationSettings(props) {
       else{
         setValue(e.target.value);  
       }
-      setDetailsChanged(true)
+
     }
     return {
       value,
@@ -64,7 +64,7 @@ function OrganizationSettings(props) {
         .then(response => { 
           onboardingLink.onChange(endpoints.onboardMemberPrefix+response.data.referralCode)
           setOrganization(response.data.organization)
-          setDetailsChanged(false)
+
         })
         .catch(error => {  
 
@@ -94,7 +94,7 @@ function OrganizationSettings(props) {
       })
     .then(response => {
       onboardingLink.onChange(endpoints.onboardMemberPrefix+response.data.referralCode)
-      setDetailsChanged(false)
+
     })
     .catch(error => {  
 
@@ -144,10 +144,6 @@ function OrganizationSettings(props) {
 			  Generate new onboarding link 
 			</Button>
 
-
-      {/*<Button size="small" style={{marginTop:20 }} onClick={refreshReferralCode} type="primary" disabled={!detailsChanged}>
-        Save Changes 
-      </Button>*/}
 
     </div>
   );

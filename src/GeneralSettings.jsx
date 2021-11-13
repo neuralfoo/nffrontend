@@ -68,15 +68,17 @@ function GeneralSettings(props) {
         })
         .catch(error => {  
 
-            if (error.response.status === 400){
-              notif.error(error.response.data.message)
-            }
+            if (error.response !== undefined){
+              if (error.response.status === 400){
+                notif.error(error.response.data.message)
+              }
 
-            if (error.response.status === 401){
-              // notif.error(error.response.data.message);
-              props.cookies.set('token', '', { path: '/' });
-              resetAuthToken();
-              history.push(endpoints.login); 
+              if (error.response.status === 401){
+                // notif.error(error.response.data.message);
+                props.cookies.set('token', '', { path: '/' });
+                resetAuthToken();
+                history.push(endpoints.login); 
+              }
             }
         });
   }
