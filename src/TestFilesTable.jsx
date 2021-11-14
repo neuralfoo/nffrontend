@@ -209,7 +209,7 @@ function TestFilesTable(props) {
 
 				<div className="inputtable-upload-holder">
 					<Button type="default" onClick={showModal}>
-				    	Upload test files
+				    	Upload Test Files
 				    </Button>
 				</div>
 			</div>

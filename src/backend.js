@@ -19,5 +19,10 @@ backend.getImageFile 		= backend.host + "/app/fs/image/"
 backend.getTestFiles 		= backend.host + "/app/testboard/testFiles/list"
 backend.deleteTestFiles 	= backend.host + "/app/testboard/testFiles/delete"
 backend.updateAnnotation 	= backend.host + "/app/testboard/testFiles/annotation/update"
+backend.deleteTest 			= backend.host + "/app/testcontroller/test/delete"
+
+backend.runAccuracyTestImgClf 	= backend.host + "/app/testcontroller/imageclassification/accuracytest/action"
+backend.getImgClfAccuracyTests 	= backend.host + "/app/testcontroller/imageclassification/accuracytest/list"
+
 
 export default backend
