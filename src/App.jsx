@@ -6,6 +6,7 @@ import Masthead from './Masthead';
 import Dashboard from './Dashboard';
 import Testboard from './Testboard';
 import Settings from './Settings';
+import AccuracyTestReport from './AccuracyTestReport';
 
 import { authtoken,setAuthToken } from './globals';
 
@@ -64,6 +65,10 @@ function App() {
 
           <Route path={endpoints.getTestboard}>
             <Testboard cookies={cookies} />
+          </Route>
+
+          <Route path={endpoints.accuracyReport}>
+            <AccuracyTestReport cookies={cookies} />
           </Route>
 
           <Route exact path="/">

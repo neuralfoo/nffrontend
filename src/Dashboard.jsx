@@ -95,16 +95,16 @@ function Dashboard(props) {
 	    render: environment => {
 	    	let color = "#38b000"
 	    	if (environment === 'production') {
-	            color = '#147df5';
+	            color = '#FB3640';
 	        }
 	        else if (environment === 'preproduction') {
-	            color = '#90be6d';
+	            color = '#F85E00';
 	        }
 	        else if (environment === 'staging') {
-	            color = '#f8961e';
+	            color = '#2EC0F9';
 	        }
 	        else if (environment === 'development') {
-	            color = '#f94144';
+	            color = '#44AF69';
 	        }
 
 	        return (
