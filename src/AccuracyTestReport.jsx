@@ -340,7 +340,7 @@ function AccuracyTestReport(props) {
 						{
 							test.testboard.requests.map(
 								(item,index) => (
-									<>	
+									<div key={index}>	
 										<div className="accuracytestreport-small-title">
 											{"Request "+(index+1).toString()}
 										</div>
@@ -368,14 +368,14 @@ function AccuracyTestReport(props) {
 												HTTP Headers:
 											</div>
 											<div className="accuracytestreport-value">
-												{item.apiHeader.map((item => {
+												{item.apiHeader.map((item,index) => {
 													return (
-														<>
+														<div key={index}>
 															<br/>
 															{item[0] + " : " + item[1]}
-														</>
+														</div>
 														)
-												}))}
+												})}
 											</div>
 										</div>
 										<div className="accuracytestreport-key-value">
@@ -423,7 +423,7 @@ function AccuracyTestReport(props) {
 											</div>
 										</div>
 										<br/>
-									</>
+									</div>
 
 							))	
 						}
@@ -436,7 +436,7 @@ function AccuracyTestReport(props) {
 								Accuracy:
 							</div>
 							<div className="accuracytestreport-value">
-								{test.accuracy}%
+								{test.accuracy ? test.accuracy.toString()+"%" : "<calculated after test is completed>"}
 							</div>
 						</div>
 
@@ -445,7 +445,21 @@ function AccuracyTestReport(props) {
 								Confusion Matrix:
 							</div>
 							<div className="accuracytestreport-value">
-								{test.confusionMatrix}
+								{test.confusionMatrix ? 
+									<table>
+										<tbody>
+											{test.confusionMatrix.map((row, i) => (
+											  <tr key={i}>
+											    {row.map((col, j) => (
+											      <td className="accuracytestreport-table-cell" key={j}>{col}</td>
+											    ))}
+											  </tr>
+											))}
+										</tbody>
+									</table>
+								: "<calculated after test is completed>"}
+
+								
 							</div>
 						</div>
 						
