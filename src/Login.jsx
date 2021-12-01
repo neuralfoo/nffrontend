@@ -8,7 +8,7 @@ import { Input } from 'antd';
 
 import backend from "./backend"
 import axios from 'axios'
-
+import endpoints from './endpoints'
 
 import { resetAuthToken, setAuthToken } from './globals'
 
@@ -30,7 +30,7 @@ function Login(props) {
         	// console.log(response.data.token)
         	props.cookies.set('token', response.data.token, { path: '/' });
         	setAuthToken(response.data.token)
-        	history.push('/dashboard'); 
+        	history.push(endpoints.dashboard); 
         })
         .catch(error => {
             props.cookies.set('token', '', { path: '/' });
