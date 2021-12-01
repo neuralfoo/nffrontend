@@ -70,6 +70,7 @@
 	font-size: 18px;
 	margin: 10px 0px 5px 0px;
 	text-decoration: underline;
+	text-align: left;
 }
 
 .accuracytestreport-table-cell {
@@ -81,8 +82,8 @@
 *{
 	border: 1px solid #000;
 }
-*/
 
+*/
 
 
 
