@@ -1,6 +1,6 @@
 const backend = {}
 
-backend.host = "http://34.125.24.109"
+backend.host = "http://neuralfoo.com"
 
 backend.login 				= backend.host + "/app/login"
 backend.signup 				= backend.host + "/app/signup"
