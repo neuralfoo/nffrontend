@@ -1,4 +1,5 @@
-import { Upload, message, Button } from 'antd';
+import {useState} from 'react';
+import { Upload, message, Button, Input } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
 import backend from "./backend"
@@ -10,6 +11,8 @@ message.config({
 
 function FileUpload(props){
 
+	const [gt,setGt] = useState("");
+
 	const uploadprops = {
 	  name: 'file',
 	  action: backend.uploadImageFile,
@@ -17,7 +20,7 @@ function FileUpload(props){
 	  	Authorization : props.cookies.get('token')
 	  },
 	  multiple:true,
-	  data:{testboardID : props.testboardID},
+	  data:{testboardID : props.testboardID, groundTruth:gt},
 	  onChange(info) {
 	    if (info.file.status !== 'uploading') {
 	      // console.log(info.file, info.fileList);
@@ -30,10 +33,18 @@ function FileUpload(props){
 	  },
 	};
 
+
+	const onChangeGt = (e) => {
+		setGt(e.target.value)
+	}
+
 	return (
+		<>
+		<Input placeholder="Default Groud truth" value={gt} onChange={onChangeGt} />
 	  <Upload {...uploadprops}>
 	    <Button icon={<UploadOutlined />}>Click to Upload</Button>
 	  </Upload>
+	  </>
 	);
 
 }

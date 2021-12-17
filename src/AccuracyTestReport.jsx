@@ -1,5 +1,5 @@
 import React, {useState,useLayoutEffect} from 'react';
-import { Button,Tag,Table,Modal,Space } from 'antd';
+import { Button,Tag,Table,Modal,Space,Input } from 'antd';
 
 import { useHistory,useParams } from "react-router-dom";
 
@@ -25,6 +25,30 @@ function AccuracyTestReport(props) {
 	
 	const history = useHistory();
 	
+	const { TextArea } = Input;
+
+	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [requestOutput, setRequestOutput] = useState("");
+
+	const showModal = () => {
+		setIsModalVisible(true);
+	};
+
+	const handleOk = () => {
+		setIsModalVisible(false);
+	};
+
+	const handleCancel = () => {
+		setIsModalVisible(false);
+	};
+
+	const updateModelData = (response) => {
+		var s = JSON.stringify(response,undefined, 2)
+		// console.log(s)
+		setRequestOutput(s)
+		showModal()
+	}
+
 	const getTestDetails = () => {
 		let payload = {
 			testID : testID,
@@ -35,7 +59,7 @@ function AccuracyTestReport(props) {
 			headers: {"Authorization" : props.cookies.get('token')}
 		})
 		.then(function (response) {
-			console.log(response.data.test)
+			// console.log(response.data.test)
 			setTestDetails(response.data.test)
 		})
 		.catch(function (error) {
@@ -72,7 +96,7 @@ function AccuracyTestReport(props) {
 			headers: {"Authorization" : props.cookies.get('token')}
 		})
 		.then(function (response) {
-			console.log(response.data.hits)
+			// console.log(response.data.hits)
 			setHits(response.data.hits)
 		})
 		.catch(function (error) {
@@ -153,7 +177,7 @@ function AccuracyTestReport(props) {
 	        value: false,
 	      }
 	    ],
-	    onFilter:(value, record) => record.status.includes(value),
+	    onFilter:(value, record) => record.result == value,
 	    render: status => {
 	    	let color = ""
 	    	let value = ""
@@ -178,7 +202,7 @@ function AccuracyTestReport(props) {
 	    render: (text, record) => (
 	      <Space size="middle">
 	        <a target="_blank" rel="noreferrer" href={backend.host+record.imageUrl}>Show Image</a>
-	        <Button type="link" onClick={null}>API response</Button>
+	        <Button type="link" onClick={() => updateModelData(record.response)}>API response</Button>
 	      </Space>
 	    ),
 	  },
@@ -468,6 +492,10 @@ function AccuracyTestReport(props) {
 						</div>
 
 					    <Table className="accuracytestreport-table" columns={columns} dataSource={hits} />
+
+					    <Modal width={800} title="API Response" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+							<TextArea rows={20} value={requestOutput} /> 
+						</Modal>
 
 					</div>
 

@@ -1,22 +1,22 @@
 const endpoints = {}
 
-endpoints.host = "http://localhost:3000"
+endpoints.host = "http://0.0.0.0:3000"
 
-endpoints.login =  "/login"
-endpoints.signup =  "/signup"
+endpoints.login =  "/web/login"
+endpoints.signup =  "/web/signup"
 
-endpoints.dashboard =  "/dashboard"
-endpoints.settings =  "/settings"
+endpoints.dashboard =  "/web/dashboard"
+endpoints.settings =  "/web/settings"
 
-endpoints.newTestboard =  "/testboard/new"
-endpoints.getTestboard =  "/testboard/get/:testboardID"
+endpoints.newTestboard =  "/web/testboard/new"
+endpoints.getTestboard =  "/web/testboard/get/:testboardID"
 
-endpoints.getTestboardPrefix =  "/testboard/get/"
+endpoints.getTestboardPrefix =  "/web/testboard/get/"
 
-endpoints.onboardMemberPrefix = endpoints.host + "/onboard/"
-endpoints.onboardMember =  "/onboard/:referralCode"
+endpoints.onboardMemberPrefix = endpoints.host + "/web/onboard/"
+endpoints.onboardMember =  "/web/onboard/:referralCode"
 
-endpoints.accuracyReport 		= "/report/accuracy/:testboardID/:testID"
-endpoints.accuracyReportPrefix 	= "/report/accuracy/"
+endpoints.accuracyReport 		= "/web/report/accuracy/:testboardID/:testID"
+endpoints.accuracyReportPrefix 	= "/web/report/accuracy/"
 
 export default endpoints
