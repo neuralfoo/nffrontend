@@ -1,6 +1,6 @@
 const backend = {}
 
-backend.host = "http://neuralfoo.com"
+backend.host = process.env.REACT_APP_BACKEND_HOST
 
 backend.login 				= backend.host + "/app/login"
 backend.signup 				= backend.host + "/app/signup"

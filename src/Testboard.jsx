@@ -13,6 +13,7 @@ import axios from 'axios'
 
 import TestFilesTable from "./TestFilesTable"
 import AccuracyTable from "./AccuracyTable"
+import FunctionalTable from "./FunctionalTable"
 
 import notif from "./notification"
 
@@ -406,6 +407,7 @@ function Testboard(props) {
 					<div className="testboard-vertical-holder">
 						<TestFilesTable testboardID={testboardID} cookies={props.cookies} />
 						<AccuracyTable testboardID={testboardID} cookies={props.cookies} />
+						<FunctionalTable testboardID={testboardID} cookies={props.cookies} />
 					</div>
 
 					: null
