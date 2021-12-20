@@ -36,7 +36,7 @@ function AccuracyTable(props) {
 	    			headers: {"Authorization" : props.cookies.get('token')}
 	    		})
 		.then(function (response) {
-			console.log(response.data.tests)
+			// console.log(response.data.tests)
 			setTests(response.data.tests)
 		})
 		.catch(function (error) {

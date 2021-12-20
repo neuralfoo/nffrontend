@@ -37,7 +37,7 @@ function FunctionalTable(props) {
 	    			headers: {"Authorization" : props.cookies.get('token')}
 	    		})
 		.then(function (response) {
-			console.log(response.data.tests)
+			// console.log(response.data.tests)
 			setTests(response.data.tests)
 		})
 		.catch(function (error) {
@@ -231,7 +231,7 @@ function FunctionalTable(props) {
 				    <Button className="functionaltable-refresh-button" onClick={getAccuracyTests}>
 				    	<ReloadOutlined /> Refresh Test List
 				    </Button>
-				    <TestCasesModal />
+				    <TestCasesModal testboardID={props.testboardID} requestCount={props.requestCount} cookies={props.cookies} />
 				</div>
 			</div>
 		    <Table className="functionaltable-table" columns={columns} dataSource={tests} />

@@ -68,7 +68,7 @@ function Testboard(props) {
 
 
 	const changeRequestParam = (i,p,v) => {
-		var r = apiRequests
+		var r = [...apiRequests]
 		r[i][p] = v
 		setApiRequests(r)
 
@@ -407,7 +407,7 @@ function Testboard(props) {
 					<div className="testboard-vertical-holder">
 						<TestFilesTable testboardID={testboardID} cookies={props.cookies} />
 						<AccuracyTable testboardID={testboardID} cookies={props.cookies} />
-						<FunctionalTable testboardID={testboardID} cookies={props.cookies} />
+						<FunctionalTable testboardID={testboardID} requestCount={apiRequests.length} cookies={props.cookies} />
 					</div>
 
 					: null
