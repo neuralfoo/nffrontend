@@ -35,4 +35,10 @@ backend.listFunctionalTestcases		= backend.host + "/app/testcontroller/functiona
 backend.deleteFunctionalTestcase	= backend.host + "/app/testcontroller/functionaltest/testcase/delete"
 backend.editFunctionalTestcase		= backend.host + "/app/testcontroller/functionaltest/testcase/update"
 
+backend.functionalTestAction 		= backend.host + "/app/testcontroller/functionaltest/action"
+backend.functionalTestList 			= backend.host + "/app/testcontroller/functionaltest/list"
+backend.functionalTestDetails 		= backend.host + "/app/testcontroller/functionaltest/details"
+backend.functionalTestApiHits 		= backend.host + "/app/testcontroller/functionaltest/hits"
+
+
 export default backend

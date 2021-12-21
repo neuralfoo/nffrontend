@@ -224,11 +224,11 @@ function AccuracyTable(props) {
 					Accuracy Tests
 				</div>
 				<div className="accuracytable-upload-holder">
-					<Button type="primary" onClick={runAccuracyTest}>
-				    	Run New Test
-				    </Button>
 				    <Button className="accuracytable-refresh-button" onClick={getAccuracyTests}>
 				    	<ReloadOutlined /> Refresh Test List
+				    </Button>
+				    <Button type="primary" className="functionaltable-refresh-button" onClick={runAccuracyTest}>
+				    	Run New Test
 				    </Button>
 				</div>
 			</div>

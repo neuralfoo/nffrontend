@@ -26,13 +26,13 @@ function FunctionalTable(props) {
 	const [tests, setTests] = useState([]);
 
 
-	const getAccuracyTests = () => {
+	const getFunctionalTests = () => {
 		
 		let payload = {
 			testboardID:props.testboardID
 		}
 
-		axios.post(backend.getImgClfAccuracyTests,payload,
+		axios.post(backend.functionalTestList,payload,
 				{ 
 	    			headers: {"Authorization" : props.cookies.get('token')}
 	    		})
@@ -67,10 +67,10 @@ function FunctionalTable(props) {
 		let payload = {
 			testboardID:props.testboardID,
 			action:"start",
-			accuracyTestID:""
+			testID:""
 		}
 
-		axios.post(backend.runAccuracyTestImgClf, payload,
+		axios.post(backend.functionalTestAction, payload,
     		{ 
     			headers: {"Authorization" : props.cookies.get('token')}
     		} 
@@ -78,7 +78,7 @@ function FunctionalTable(props) {
         .then(response => { 
         	// history.push(endpoints.getTestboardPrefix+response.data.id);
         	notif.success(response.data.message)
-        	getAccuracyTests()
+        	getFunctionalTests()
         })
         .catch(error => {
             
@@ -110,7 +110,7 @@ function FunctionalTable(props) {
         .then(response => { 
         	// history.push(endpoints.getTestboardPrefix+response.data.id);
         	notif.success(response.data.message)
-        	getAccuracyTests()
+        	getFunctionalTests()
         })
         .catch(error => {
             
@@ -129,7 +129,7 @@ function FunctionalTable(props) {
 	}
 
 	useLayoutEffect(()=>{
-		getAccuracyTests()
+		getFunctionalTests()
 	},[])
 
 
@@ -151,15 +151,16 @@ function FunctionalTable(props) {
 	    key: 'duration',
 	  },
 	  {
-	    title: '# Test Images',
-	    dataIndex: 'testImagesCount',
-	    key: 'testImagesCount'
+	    title: '# Test Cases',
+	    dataIndex: 'totalCasesCount',
+	    key: 'totalCasesCount'
 	  },
 	  {
-	    title: 'Accuracy',
-	    dataIndex: 'accuracy',
-	    key: 'accuracy',
-	    render:(text) => text ? text.toString()+"%" : "-"
+	    title: 'Pass/Fail cases',
+	    key: 'passfail',
+	    render:(text,record) => {
+	    	return record.passedCasesCount.toString()+"/"+record.failedCasesCount.toString()
+	    }
 	  },
 	  {
 	    title: 'Status',
@@ -225,13 +226,13 @@ function FunctionalTable(props) {
 					Functional Tests
 				</div>
 				<div className="functionaltable-upload-holder">
-					<Button type="primary" onClick={runAccuracyTest}>
-				    	Run New Test
-				    </Button>
-				    <Button className="functionaltable-refresh-button" onClick={getAccuracyTests}>
+				    <TestCasesModal  testboardID={props.testboardID} requestCount={props.requestCount} cookies={props.cookies} />
+				    <Button className="functionaltable-refresh-button" onClick={getFunctionalTests}>
 				    	<ReloadOutlined /> Refresh Test List
 				    </Button>
-				    <TestCasesModal testboardID={props.testboardID} requestCount={props.requestCount} cookies={props.cookies} />
+					<Button type="primary" className="functionaltable-refresh-button" onClick={runAccuracyTest}>
+				    	Run New Test
+				    </Button>
 				</div>
 			</div>
 		    <Table className="functionaltable-table" columns={columns} dataSource={tests} />
