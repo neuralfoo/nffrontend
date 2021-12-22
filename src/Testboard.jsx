@@ -315,8 +315,8 @@ function Testboard(props) {
 								disabled = {testboardReceived} >
 
 								<Option value="imageclassification">Image Classification</Option>
-								<Option value="imagesegmentation">Image Segmentation</Option>
-								<Option value="objectdetection">Object Detection</Option>
+								<Option value="generalapi">General API</Option>
+								{/*<Option value="objectdetection">Object Detection</Option>*/}
 							</Select>
 						</div>
 					</div>
@@ -401,16 +401,24 @@ function Testboard(props) {
 				}
 
 				{
-
-					testboardID ? 
-
+					testboardID && testboard.apiType === "imageclassification" 
+					?
 					<div className="testboard-vertical-holder">
 						<TestFilesTable testboardID={testboardID} cookies={props.cookies} />
 						<AccuracyTable testboardID={testboardID} cookies={props.cookies} />
 						<FunctionalTable testboardID={testboardID} requestCount={apiRequests.length} cookies={props.cookies} />
 					</div>
-
-					: null
+					:
+					null
+				}
+				{
+					testboardID && testboard.apiType === "generalapi" 
+					?
+					<div className="testboard-vertical-holder">
+						<FunctionalTable testboardID={testboardID} requestCount={apiRequests.length} cookies={props.cookies} />
+					</div>
+					:
+					null
 				}
 
 

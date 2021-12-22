@@ -229,6 +229,7 @@ function Request(props) {
 					  <Radio value="url" className="request-radio-button-text">URL</Radio>
 					  <Radio value="file" className="request-radio-button-text">File</Radio>
 					  <Radio value="base64" className="request-radio-button-text">Base64</Radio>
+					  <Radio value="none" className="request-radio-button-text">None</Radio>
 					</Radio.Group>
 				</div>
 
