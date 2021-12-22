@@ -19,4 +19,9 @@ endpoints.onboardMember =  "/web/onboard/:referralCode"
 endpoints.accuracyReport 		= "/web/report/accuracy/:testboardID/:testID"
 endpoints.accuracyReportPrefix 	= "/web/report/accuracy/"
 
+endpoints.functionalReport 		= "/web/report/functional/:testboardID/:testID"
+endpoints.functionalReportPrefix 	= "/web/report/functional/"
+
+
+
 export default endpoints
