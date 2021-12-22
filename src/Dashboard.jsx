@@ -154,51 +154,6 @@ function Dashboard(props) {
 	    key: 'apiLastRunOn',
 	  },
 	  {
-	    title: 'Status',
-	    dataIndex: 'apiStatus',
-	    key: 'apiStatus',
-	    filters: [
-	      {
-	        text: 'STOPPED',
-	        value: 'stopped',
-	      },
-	      {
-	        text: 'RUNNING',
-	        value: 'running',
-	      },
-	      {
-	        text: 'COMPLETED',
-	        value: 'completed',
-	      },
-	      {
-	        text: 'READY',
-	        value: 'ready',
-	      }
-	    ],
-	    onFilter:(value, record) => record.status.includes(value),
-	    render: status => {
-	    	let color = "blue"
-	    	if (status === 'running') {
-	            color = 'green';
-	        }
-	        else if (status === 'completed') {
-	            color = 'gold';
-	        }
-	        else if (status === 'stopped') {
-	            color = 'red';
-	        }
-	        else if (status === 'ready') {
-	            color = 'blue';
-	        }
-	        
-	        return (
-	            <Tag color={color} key={status}>
-	              {status.toUpperCase()}
-	            </Tag>
-	          );
-	    },
-	  },
-	  {
 	    title: 'Action',
 	    key: 'action',
 	    render: (text, record) => (
