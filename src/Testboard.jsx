@@ -193,22 +193,25 @@ function Testboard(props) {
 	  			notif.error("API Endpoint cannot be empty")
 		  		return
 	  		}
-	  		if (!payload.apiRequests[i]["apiResponseBody"]){
-	  			notif.error("API Response cannot be empty")
-		  		return
+	  		if (payload.apiType == "generalapi"){
+		  		if (!payload.apiRequests[i]["apiResponseBody"]){
+		  			notif.error("API Response cannot be empty")
+			  		return
+		  		}
+		  		if (!payload.apiRequests[i]["apiInputDataType"]){
+		  			notif.error("Please choose API input data type")
+			  		return
+		  		}
+		  		if (!payload.apiRequests[i]["apiRequestBodyType"]){
+		  			notif.error("Please choose API request body type")
+			  		return
+		  		}
+		  		if (!payload.apiRequests[i]["apiResponseBodyType"]){
+		  			notif.error("Please choose response body type")
+			  		return
+		  		}	
 	  		}
-	  		if (!payload.apiRequests[i]["apiInputDataType"]){
-	  			notif.error("Please choose API input data type")
-		  		return
-	  		}
-	  		if (!payload.apiRequests[i]["apiRequestBodyType"]){
-	  			notif.error("Please choose API request body type")
-		  		return
-	  		}
-	  		if (!payload.apiRequests[i]["apiResponseBodyType"]){
-	  			notif.error("Please choose response body type")
-		  		return
-	  		}
+	  		
 	  	}
 
 	    axios.post(backend.createTestboard, payload,

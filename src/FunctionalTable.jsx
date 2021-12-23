@@ -212,7 +212,7 @@ function FunctionalTable(props) {
 	    key: 'action',
 	    render: (text, record) => (
 	      <Space size="middle">
-	        <a target="_blank" rel="noreferrer" href={endpoints.functionalReportPrefix+props.testboardID+"/"+record["testID"]}>Open Report</a>
+	        <a target="_blank" href={endpoints.functionalReportPrefix+props.testboardID+"/"+record["testID"]}>Open Report</a>
 	        <Button type="link" onClick={() => deleteTest(record["testID"])}>Delete Test</Button>
 	      </Space>
 	    ),

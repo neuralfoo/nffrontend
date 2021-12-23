@@ -1,6 +1,6 @@
 const endpoints = {}
 
-endpoints.host = "http://0.0.0.0:3000"
+endpoints.host = process.env.REACT_APP_FRONTEND_HOST //"http://0.0.0.0:3000"
 
 endpoints.login =  "/web/login"
 endpoints.signup =  "/web/signup"

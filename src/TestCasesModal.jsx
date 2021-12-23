@@ -129,7 +129,7 @@ function TestCasesModal(props) {
   for (var i = 0; i < props.requestCount; i++) {
     
   
-    var columns = columns.concat([
+    columns = columns.concat([
       {
         title: 'Request Body - Request '+(i+1).toString(),
         dataIndex: 'requestBody'+(i+1).toString(),
@@ -170,7 +170,7 @@ function TestCasesModal(props) {
     },
   ];  
 
-  var columns = columns.concat(last_element)
+  columns = columns.concat(last_element)
 
   useLayoutEffect(() => {
     getTestcases(props.testboardID)

@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "http://neuralfoo.com/web/",
   "dependencies": {
     "@material-ui/core": "^4.12.3",
     "@reduxjs/toolkit": "^1.6.1",
