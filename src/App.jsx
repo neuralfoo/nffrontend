@@ -1,5 +1,6 @@
 import './App.css';
 import React,{useLayoutEffect} from 'react';
+import LandingPage from "./LandingPage"
 import Login from './Login';
 import Signup from './Signup';
 import Masthead from './Masthead';
@@ -8,6 +9,7 @@ import Testboard from './Testboard';
 import Settings from './Settings';
 import AccuracyTestReport from './AccuracyTestReport';
 import FunctionalTestReport from './FunctionalTestReport';
+
 
 import { authtoken,setAuthToken } from './globals';
 
@@ -77,7 +79,7 @@ function App() {
           </Route>
 
           <Route exact path="/">
-            Home
+            <LandingPage cookies={cookies} />
           </Route>
 
           <Route path="*">
