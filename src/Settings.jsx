@@ -43,12 +43,12 @@ function Settings(props) {
 		          <TabPane tab="Organization" key="3">
 		            <OrganizationSettings cookies={props.cookies} />
 		          </TabPane>
-		          <TabPane tab="Plans" key="4">
+		          {/*<TabPane tab="Plans" key="4">
 		            Content of Tab 4
 		          </TabPane>
 		          <TabPane tab="Billing" key="5">
 		            Content of Tab 5
-		          </TabPane>
+		          </TabPane>*/}
 		        </Tabs>
 				
 			</div>
