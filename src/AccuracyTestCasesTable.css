@@ -1,0 +1,78 @@
+.accuracytestcasestable-holder{
+	display: flex;	
+	flex-direction: column;
+	margin: 0px 0px 0px 0px;
+	width: 100%;
+
+	align-items:center;
+	justify-content: flex-start;
+}
+
+.accuracytestcasestable-horizontal-holder{
+	display: flex;	
+	flex-direction: row;
+	margin: 0px 0px 0px 0px;
+	width: 100%;
+	align-items:center;
+	justify-content: space-between;
+	margin: 0px 0px 30px 0px;
+
+}
+
+.accuracytestcasestable-modal-horizontal-holder{
+	display: flex;	
+	flex-direction: row;
+	margin: 0px 0px 0px 0px;
+	width: 100%;
+	align-items:center;
+	justify-content: space-between;
+	margin: 10px 0px 10px 0px;
+	flex-wrap: wrap;
+}
+
+
+.accuracytestcasestable-modal-input-holder{
+	margin: 0px 20px 0px 20px;	
+}
+
+.accuracytestcasestable-title{
+	font-size: 20px;
+}
+
+.accuracytestcasestable-upload-holder{
+
+}
+
+.accuracytestcasestable-table{
+	width: 100%;
+}
+
+.accuracytestcasestable-modal-input-holder{
+	/*width: 100%;*/
+	display: flex;	
+	flex-direction: column;
+	align-items:flex-start;
+	justify-content: flex-start;
+	flex-grow: 1;
+}
+
+.accuracytestcasestable-modal-input{
+	/*width: 100%;*/
+	width: 500px;
+	min-height: 250px;
+	/*max-height: 350px;*/
+	font-size: 16px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	font-family: "Lucida Console", "Courier New", monospace;
+	/*overflow: scroll;*/
+	/*word-wrap: break-word;*/
+	/*word-break: break-all;*/
+}
+
+/*
+*{
+	border: 1px solid #000;
+}
+
+*/

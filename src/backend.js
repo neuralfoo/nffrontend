@@ -41,4 +41,9 @@ backend.functionalTestDetails 		= backend.host + "/app/testcontroller/functional
 backend.functionalTestApiHits 		= backend.host + "/app/testcontroller/functionaltest/hits"
 
 
+backend.editAccuracyTestcase 		= backend.host + "/app/testcontroller/accuracytest/testcase/update"
+backend.deleteAccuracyTestcase 		= backend.host + "/app/testcontroller/accuracytest/testcase/delete"
+backend.getAccuracyTestcases		= backend.host + "/app/testcontroller/accuracytest/testcase/list"
+backend.addAccuracyTestcase			= backend.host + "/app/testcontroller/accuracytest/testcase/add"
+
 export default backend

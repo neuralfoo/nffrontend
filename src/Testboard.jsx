@@ -14,6 +14,8 @@ import axios from 'axios'
 import TestFilesTable from "./TestFilesTable"
 import AccuracyTable from "./AccuracyTable"
 import FunctionalTable from "./FunctionalTable"
+import AccuracyTestCasesTable from "./AccuracyTestCasesTable"
+import GeneralAccuracyTable from "./GeneralAccuracyTable"
 
 import notif from "./notification"
 
@@ -193,23 +195,22 @@ function Testboard(props) {
 	  			notif.error("API Endpoint cannot be empty")
 		  		return
 	  		}
-	  		if (payload.apiType == "generalapi"){
-		  		if (!payload.apiRequests[i]["apiResponseBody"]){
-		  			notif.error("API Response cannot be empty")
-			  		return
-		  		}
-		  		if (!payload.apiRequests[i]["apiInputDataType"]){
-		  			notif.error("Please choose API input data type")
-			  		return
-		  		}
-		  		if (!payload.apiRequests[i]["apiRequestBodyType"]){
-		  			notif.error("Please choose API request body type")
-			  		return
-		  		}
-		  		if (!payload.apiRequests[i]["apiResponseBodyType"]){
-		  			notif.error("Please choose response body type")
-			  		return
-		  		}	
+
+	  		if (!payload.apiRequests[i]["apiResponseBody"]){
+	  			notif.error("API Response cannot be empty")
+		  		return
+	  		}
+	  		if (!payload.apiRequests[i]["apiInputDataType"]){
+	  			notif.error("Please choose API input data type")
+		  		return
+	  		}
+	  		if (!payload.apiRequests[i]["apiRequestBodyType"]){
+	  			notif.error("Please choose API request body type")
+		  		return
+	  		}
+	  		if (!payload.apiRequests[i]["apiResponseBodyType"]){
+	  			notif.error("Please choose response body type")
+		  		return
 	  		}
 	  		
 	  	}
@@ -319,6 +320,7 @@ function Testboard(props) {
 
 								<Option value="imageclassification">Image Classification</Option>
 								<Option value="generalapi">General API</Option>
+								<Option value="aimlapi">AI/ML API</Option>
 								{/*<Option value="objectdetection">Object Detection</Option>*/}
 							</Select>
 						</div>
@@ -418,6 +420,17 @@ function Testboard(props) {
 					testboardID && testboard.apiType === "generalapi" 
 					?
 					<div className="testboard-vertical-holder">
+						<FunctionalTable testboardID={testboardID} requestCount={apiRequests.length} cookies={props.cookies} />
+					</div>
+					:
+					null
+				}
+				{
+					testboardID && testboard.apiType === "aimlapi" 
+					?
+					<div className="testboard-vertical-holder">
+						<AccuracyTestCasesTable testboardID={testboardID} cookies={props.cookies} />
+						<GeneralAccuracyTable testboardID={testboardID} cookies={props.cookies} />
 						<FunctionalTable testboardID={testboardID} requestCount={apiRequests.length} cookies={props.cookies} />
 					</div>
 					:
