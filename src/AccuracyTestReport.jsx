@@ -28,7 +28,9 @@ function AccuracyTestReport(props) {
 	const { TextArea } = Input;
 
 	const [isModalVisible, setIsModalVisible] = useState(false);
-	const [requestOutput, setRequestOutput] = useState("");
+	const [modalOutput1, setModalOutput1] = useState("");
+	const [modalOutput2, setModalOutput2] = useState("");
+	const [modalTitle, setModalTitle] = useState("");
 
 	const showModal = () => {
 		setIsModalVisible(true);
@@ -42,10 +44,18 @@ function AccuracyTestReport(props) {
 		setIsModalVisible(false);
 	};
 
-	const updateModelData = (response) => {
-		var s = JSON.stringify(response,undefined, 2)
-		// console.log(s)
-		setRequestOutput(s)
+	const updateModalData = (record,e,title) => {
+
+		console.log(record)
+		// console.log(e.target.parentNode.getAttribute("index"))
+
+		var text1 = JSON.stringify(JSON.parse(record[e.target.parentNode.getAttribute("text1")]),undefined, 2)
+		var text2 = JSON.stringify(JSON.parse(record[e.target.parentNode.getAttribute("text2")]),undefined, 2)
+		
+		setModalOutput1(text1)
+		setModalOutput2(text2)
+
+		setModalTitle(title)
 		showModal()
 	}
 
@@ -54,7 +64,7 @@ function AccuracyTestReport(props) {
 			testID : testID,
 			testboardID:testboardID
 		}
-		axios.post(backend.getImgClfAccuracyReport,payload,
+		axios.post(backend.functionalTestDetails,payload,
 		{ 
 			headers: {"Authorization" : props.cookies.get('token')}
 		})
@@ -131,82 +141,103 @@ function AccuracyTestReport(props) {
 		return string.charAt(0).toUpperCase() + string.slice(1);
 	}
 
-	const columns = [
+	var columns = [
 	  {
 	    title: '#',
 	    dataIndex: 'key',
 	    key: 'key',
 	    sorter: (a, b) => parseInt(a.key) - parseInt(b.key)
-	  },
-	  {
-	    title: 'Filename',
-	    dataIndex: 'filename',
-	    key: 'filename',
-	  },
-	  {
-	    title: 'Confidence',
-	    dataIndex: 'confidence',
-	    key: 'confidence',
-	  },
-	  {
-	    title: 'Ground Truth',
-	    dataIndex: 'groundTruth',
-	    key: 'groundTruth'
-	  },
-	  {
-	    title: 'Prediction',
-	    dataIndex: 'prediction',
-	    key: 'prediction'
-	  },
-	  {
-	    title: 'Total Response Time',
-	    dataIndex: 'totalResponseTime',
-	    key: 'totalResponseTime'
-	  },
-	  {
-	    title: 'Result',
-	    dataIndex: 'result',
-	    key: 'result',
-	    filters: [
-	      {
-	        text: 'PASS',
-	        value: true,
-	      },
-	      {
-	        text: 'FAIL',
-	        value: false,
-	      }
-	    ],
-	    onFilter:(value, record) => record.result == value,
-	    render: status => {
-	    	let color = ""
-	    	let value = ""
-	    	if (status === true) {
-	            color = 'green';
-	            value = 'PASS'
-	        }
-	        else if (status === false) {
-	            color = 'red';
-	            value = "FAIL"
-	        }
-	        return (
-	            <Tag color={color} key={status}>
-	              {value}
-	            </Tag>
-	          );
-	    }
-	  },
-	  {
-	    title: 'Action',
-	    key: 'action',
-	    render: (text, record) => (
-	      <Space size="middle">
-	        <a target="_blank" rel="noreferrer" href={backend.host+record.imageUrl}>Show Image</a>
-	        <Button type="link" onClick={() => updateModelData(record.response)}>API response</Button>
-	      </Space>
-	    ),
-	  },
-	];
+	  }]
+
+	if (test.testboard){
+		for (var i = 0; i < test.testboard.requests.length; i++) {
+			var ii = (i+1).toString()
+			columns = columns.concat(
+				[
+					{
+					  	title: 'Request '+(i+1).toString(),
+					  	children:[
+						  {
+						    title: 'Full Request & Response Body',
+						    key: 'requestBody'+(i+1).toString(),
+						    render: (text, record) => (
+						      <Space size="middle">
+						        <Button type="link" 
+						        	text1={'requestBody'+ii} 
+						        	text2={'responseBody'+ii} onClick={(e) => updateModalData(record,e,"API Request & Response Body")}>Show request & response</Button>
+						      </Space>
+						    ),
+						  },
+						  {
+						    title: 'Response Code',
+						    dataIndex: 'responseCode'+ii,
+						    key: 'responseCode'+ii,
+						  }]
+					  }
+				]
+				)	
+		}	
+	}
+	
+	  
+	columns = columns.concat([
+		{
+			title: 'Total Response Time',
+		    dataIndex: 'totalResponseTime',
+		    key: 'totalResponseTime',
+		    render:(text)=>text
+		},
+		{
+			title: 'Response Variables',
+			key: "responseVariables",
+			render: (text, record) => (
+			  <Space size="middle">
+			    <Button type="link" 
+			    	text1="expectedResponseVariables"
+			    	text2="receivedResponseVariables" 
+			    	onClick={(e) => updateModalData(record,e,"API Response Variables (Expected vs Received)")}>Compare Input/Output</Button>
+			  </Space>
+			)
+		},
+		{
+		    title: 'Result',
+		    dataIndex: 'result',
+		    key: 'result',
+		    filters: [
+		      {
+		        text: 'PASS',
+		        value: true,
+		      },
+		      {
+		        text: 'FAIL',
+		        value: false,
+		      }
+		    ],
+		    onFilter:(value, record) => record.result == value,
+		    render: status => {
+		    	let color = ""
+		    	let value = ""
+		    	if (status === true) {
+		            color = 'green';
+		            value = 'PASS'
+		        }
+		        else if (status === false) {
+		            color = 'red';
+		            value = "FAIL"
+		        }
+		        return (
+		            <Tag color={color} key={status}>
+		              {value}
+		            </Tag>
+		          );
+		    }
+		},
+		{
+			title: 'Remarks',
+			dataIndex: 'remarks',
+			key: 'remarks',
+		}
+	]);
 
 
 	function statusTag(status) {
@@ -261,7 +292,7 @@ function AccuracyTestReport(props) {
 				<div className="accuracytestreport-content">
 					
 					<div className="accuracytestreport-title">
-						Accuracy Report
+						Functional Test Report
 					</div>
 
 					<div className="accuracytestreport-testboard-details">
@@ -340,10 +371,10 @@ function AccuracyTestReport(props) {
 
 							<div className="accuracytestreport-key-value">
 								<div className="accuracytestreport-key" >
-									Number of test images:
+									Number of test cases:
 								</div>
 								<div className="accuracytestreport-value">
-									{test.testImagesCount}
+									{test.totalCasesCount}
 								</div>
 							</div>
 
@@ -457,33 +488,18 @@ function AccuracyTestReport(props) {
 						</div>
 						<div className="accuracytestreport-key-value">
 							<div className="accuracytestreport-key" >
-								Accuracy:
+								Passed cases:
 							</div>
 							<div className="accuracytestreport-value">
-								{test.accuracy ? test.accuracy.toString()+"%" : "<calculated after test is completed>"}
+								{test.passedCasesCount}
 							</div>
 						</div>
-
 						<div className="accuracytestreport-key-value">
 							<div className="accuracytestreport-key" >
-								Confusion Matrix:
+								Failed cases:
 							</div>
 							<div className="accuracytestreport-value">
-								{test.confusionMatrix ? 
-									<table>
-										<tbody>
-											{test.confusionMatrix.map((row, i) => (
-											  <tr key={i}>
-											    {row.map((col, j) => (
-											      <td className="accuracytestreport-table-cell" key={j}>{col}</td>
-											    ))}
-											  </tr>
-											))}
-										</tbody>
-									</table>
-								: "<calculated after test is completed>"}
-
-								
+								{test.failedCasesCount}
 							</div>
 						</div>
 						
@@ -493,12 +509,23 @@ function AccuracyTestReport(props) {
 
 					    <Table className="accuracytestreport-table" columns={columns} dataSource={hits} />
 
-					    <Modal width={800} title="API Response" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-							<TextArea rows={20} value={requestOutput} /> 
+					    <Modal width={"80%"} title={modalTitle} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+							<div className="accuracytestreport-horizontal-holder">
+								<div style={{width:"100%", margin:"10px"}}>
+									<span>Input</span>
+									<TextArea rows={20} value={modalOutput1} />
+								</div>
+
+								<div style={{width:"100%",margin:"10px"}}>
+									<span>Output</span>
+									<TextArea rows={20} value={modalOutput2} /> 
+								</div>
+								
+							</div>
+							
 						</Modal>
 
 					</div>
-
 				</div>
 			: null }
 

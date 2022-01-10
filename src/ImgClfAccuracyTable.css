@@ -1,4 +1,4 @@
-.accuracytable-holder{
+.imgclfaccuracytable-holder{
 	display: flex;	
 	flex-direction: column;
 	margin: 100px 0px 0px 0px;
@@ -8,7 +8,7 @@
 	justify-content: flex-start;
 }
 
-.accuracytable-horizontal-holder{
+.imgclfaccuracytable-horizontal-holder{
 	display: flex;	
 	flex-direction: row;
 	margin: 0px 0px 0px 0px;
@@ -19,21 +19,21 @@
 
 }
 
-.accuracytable-title{
+.imgclfaccuracytable-title{
 	font-size: 20px;
 	/*margin: 0px 0px 0px 0px;*/
 
 }
 
-.accuracytable-upload-holder{
+.imgclfaccuracytable-upload-holder{
 
 }
 
-.accuracytable-table{
+.imgclfaccuracytable-table{
 	width: 100%;
 }
 
-.accuracytable-refresh-button{
+.imgclfaccuracytable-refresh-button{
 	margin-left:30px ;
 }
 

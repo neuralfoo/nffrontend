@@ -1,4 +1,4 @@
-.accuracytestreport-holder{
+.imgclfaccuracytestreport-holder{
 	display: flex;	
 	flex-direction: column;
 	margin: 70px 0px 0px 0px;
@@ -10,7 +10,7 @@
 }
 
 
-.accuracytestreport-content{
+.imgclfaccuracytestreport-content{
 	display: flex;	
 	flex-direction: column;
 	margin: 20px 0px 0px 0px;
@@ -20,14 +20,14 @@
 	justify-content: flex-start;
 }
 
-.accuracytestreport-title{
+.imgclfaccuracytestreport-title{
 	font-size: 27px;
 	margin: 0px 0px 10px 0px;
 	text-decoration: underline;
 	text-decoration-style: double;
 }
 
-.accuracytestreport-testboard-details{
+.imgclfaccuracytestreport-testboard-details{
 	display: flex;	
 	flex-direction: column;
 	margin: 0px 0px 0px 0px;
@@ -36,7 +36,7 @@
 	justify-content: flex-start;
 }
 
-.accuracytestreport-key-value{
+.imgclfaccuracytestreport-key-value{
 	display: flex;	
 	flex-direction: row;
 	margin: 0px 0px 0px 0px;
@@ -45,56 +45,38 @@
 	justify-content: flex-start;
 }
 
-.accuracytestreport-key{
+.imgclfaccuracytestreport-key{
 	margin: 0px 10px 0px 0px;
 	font-size: 16px;
 	font-weight: bold;
 }
 
-.accuracytestreport-value{
+.imgclfaccuracytestreport-value{
 	font-size: 16px;
 	margin: 0px 40px 0px 0px;
 }
 
-.accuracytestreport-link{
+.imgclfaccuracytestreport-link{
 	text-decoration: underline;
 }
 
-.accuracytestreport-sub-title{
+.imgclfaccuracytestreport-sub-title{
 	font-size: 20px;
 	margin: 30px 0px 10px 0px;	
 	text-decoration-line: underline;
 }
 
-.accuracytestreport-small-title{
+.imgclfaccuracytestreport-small-title{
 	font-size: 18px;
 	margin: 10px 0px 5px 0px;
 	text-decoration: underline;
 	text-align: left;
 }
 
-.accuracytestreport-table-cell {
+.imgclfaccuracytestreport-table-cell {
   border:1px solid black;
   padding: 10px;
 }
-
-
-.accuracytestreport-horizontal-holder{
-	display: flex;	
-	flex-direction: row;
-	margin: 0px 0px 0px 0px;
-	align-items:flex-start;
-	justify-content: space-around;
-}
-
-/*.accuracytestreport-modal{
-	display: flex;	
-	flex-direction: row;
-	margin: 0px 0px 0px 0px;
-	align-items:flex-start;
-	justify-content: space-around;
-}
-*/
 
 /*
 *{

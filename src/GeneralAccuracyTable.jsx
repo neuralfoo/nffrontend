@@ -39,7 +39,7 @@ function GeneralAccuracyTable(props) {
 			testboardID:props.testboardID
 		}
 
-		axios.post(backend.getImgClfAccuracyTests,payload,
+		axios.post(backend.accuracyTestList,payload,
 				{ 
 	    			headers: {"Authorization" : props.cookies.get('token')}
 	    		})
@@ -64,9 +64,7 @@ function GeneralAccuracyTable(props) {
 	            	notif.error("Access denied");
 	            }
 	        }
-
 		})
-	
 	}
 
 	const runAccuracyTest = () => {
@@ -77,7 +75,7 @@ function GeneralAccuracyTable(props) {
 			accuracyTestID:""
 		}
 
-		axios.post(backend.runAccuracyTestImgClf, payload,
+		axios.post(backend.accuracyTestAction, payload,
     		{ 
     			headers: {"Authorization" : props.cookies.get('token')}
     		} 
@@ -136,7 +134,7 @@ function GeneralAccuracyTable(props) {
 	}
 
 	useLayoutEffect(()=>{
-		// getAccuracyTests()
+		getAccuracyTests()
 	},[])
 
 
@@ -159,14 +157,14 @@ function GeneralAccuracyTable(props) {
 	  },
 	  {
 	    title: '# Test Cases',
-	    dataIndex: 'testImagesCount',
-	    key: 'testImagesCount'
+	    dataIndex: 'testCasesCount',
+	    key: 'testCasesCount'
 	  },
 	  {
-	    title: 'Accuracy',
-	    dataIndex: 'accuracy',
-	    key: 'accuracy',
-	    render:(text) => text ? text.toString()+"%" : "-"
+	    title: 'Accuracy (Average)',
+	    dataIndex: 'averageAccuracy',
+	    key: 'averageAccuracy',
+	    render:(text) => text ? parseFloat(text.toString()).toFixed(2).toString()+"%" : "-"
 	  },
 	  {
 	    title: 'Status',

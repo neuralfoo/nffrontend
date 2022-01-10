@@ -40,10 +40,14 @@ backend.functionalTestList 			= backend.host + "/app/testcontroller/functionalte
 backend.functionalTestDetails 		= backend.host + "/app/testcontroller/functionaltest/details"
 backend.functionalTestApiHits 		= backend.host + "/app/testcontroller/functionaltest/hits"
 
-
 backend.editAccuracyTestcase 		= backend.host + "/app/testcontroller/accuracytest/testcase/update"
 backend.deleteAccuracyTestcase 		= backend.host + "/app/testcontroller/accuracytest/testcase/delete"
 backend.getAccuracyTestcases		= backend.host + "/app/testcontroller/accuracytest/testcase/list"
 backend.addAccuracyTestcase			= backend.host + "/app/testcontroller/accuracytest/testcase/add"
+
+backend.accuracyTestAction 			= backend.host + "/app/testcontroller/accuracytest/action"
+backend.accuracyTestList 			= backend.host + "/app/testcontroller/accuracytest/list"
+backend.accuracyTestDetails 		= backend.host + "/app/testcontroller/accuracytest/details"
+
 
 export default backend

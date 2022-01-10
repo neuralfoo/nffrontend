@@ -8,6 +8,7 @@ import Dashboard from './Dashboard';
 import Testboard from './Testboard';
 import Settings from './Settings';
 import AccuracyTestReport from './AccuracyTestReport';
+import ImgClfAccuracyTestReport from './ImgClfAccuracyTestReport';
 import FunctionalTestReport from './FunctionalTestReport';
 
 
@@ -72,6 +73,10 @@ function App() {
 
           <Route path={endpoints.accuracyReport}>
             <AccuracyTestReport cookies={cookies} />
+          </Route>
+
+          <Route path={endpoints.imgClfAccuracyReport}>
+            <ImgClfAccuracyTestReport cookies={cookies} />
           </Route>
 
           <Route path={endpoints.functionalReport}>

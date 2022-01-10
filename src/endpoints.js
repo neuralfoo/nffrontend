@@ -16,12 +16,13 @@ endpoints.getTestboardPrefix =  "/web/testboard/get/"
 endpoints.onboardMemberPrefix = endpoints.host + "/web/onboard/"
 endpoints.onboardMember =  "/web/onboard/:referralCode"
 
-endpoints.accuracyReport 		= "/web/report/accuracy/:testboardID/:testID"
-endpoints.accuracyReportPrefix 	= "/web/report/accuracy/"
+endpoints.imgClfAccuracyReport 		= "/web/report/imageclassification/accuracy/:testboardID/:testID"
+endpoints.imgClfAccuracyReportPrefix 	= "/web/report/imageclassification/accuracy/"
 
 endpoints.functionalReport 		= "/web/report/functional/:testboardID/:testID"
 endpoints.functionalReportPrefix 	= "/web/report/functional/"
 
-
+endpoints.accuracyReport 		= "/web/report/accuracy/:testboardID/:testID"
+endpoints.accuracyReportPrefix 	= "/web/report/accuracy/"
 
 export default endpoints

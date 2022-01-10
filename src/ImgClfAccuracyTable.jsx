@@ -5,7 +5,7 @@ import { ReloadOutlined } from '@ant-design/icons';
 
 import { useHistory } from "react-router-dom";
 
-import "./AccuracyTable.css"
+import "./ImgClfAccuracyTable.css"
 import "antd/dist/antd.css";
 
 import { authtoken,resetAuthToken } from './globals'
@@ -210,7 +210,7 @@ function AccuracyTable(props) {
 	    key: 'action',
 	    render: (text, record) => (
 	      <Space size="middle">
-	        <a target="_blank" rel="noreferrer" href={endpoints.host+endpoints.accuracyReportPrefix+props.testboardID+"/"+record["testID"]}>Open Report</a>
+	        <a target="_blank" rel="noreferrer" href={endpoints.host+endpoints.imgClfAccuracyReportPrefix+props.testboardID+"/"+record["testID"]}>Open Report</a>
 	        <Button type="link" onClick={() => deleteTest(record["testID"])}>Delete Test</Button>
 	      </Space>
 	    ),
@@ -218,21 +218,21 @@ function AccuracyTable(props) {
 	];
 
 	return (
-		<div className="accuracytable-holder">
-			<div className="accuracytable-horizontal-holder">
-				<div className="accuracytable-title">
+		<div className="imgclfaccuracytable-holder">
+			<div className="imgclfaccuracytable-horizontal-holder">
+				<div className="imgclfaccuracytable-title">
 					Accuracy Tests
 				</div>
-				<div className="accuracytable-upload-holder">
-				    <Button className="accuracytable-refresh-button" onClick={getAccuracyTests}>
+				<div className="imgclfaccuracytable-upload-holder">
+				    <Button className="imgclfaccuracytable-refresh-button" onClick={getAccuracyTests}>
 				    	<ReloadOutlined /> Refresh Test List
 				    </Button>
-				    <Button type="primary" className="functionaltable-refresh-button" onClick={runAccuracyTest}>
+				    <Button type="primary" className="imgclfaccuracytable-refresh-button" onClick={runAccuracyTest}>
 				    	Run New Test
 				    </Button>
 				</div>
 			</div>
-		    <Table className="accuracytable-table" columns={columns} dataSource={tests} />
+		    <Table className="imgclfaccuracytable-table" columns={columns} dataSource={tests} />
 		</div>
 	)
 }

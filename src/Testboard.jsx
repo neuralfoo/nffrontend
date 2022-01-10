@@ -12,7 +12,7 @@ import backend from "./backend"
 import axios from 'axios'
 
 import TestFilesTable from "./TestFilesTable"
-import AccuracyTable from "./AccuracyTable"
+import ImgClfAccuracyTable from "./ImgClfAccuracyTable"
 import FunctionalTable from "./FunctionalTable"
 import AccuracyTestCasesTable from "./AccuracyTestCasesTable"
 import GeneralAccuracyTable from "./GeneralAccuracyTable"
@@ -410,7 +410,7 @@ function Testboard(props) {
 					?
 					<div className="testboard-vertical-holder">
 						<TestFilesTable testboardID={testboardID} cookies={props.cookies} />
-						<AccuracyTable testboardID={testboardID} cookies={props.cookies} />
+						<ImgClfAccuracyTable testboardID={testboardID} cookies={props.cookies} />
 						<FunctionalTable testboardID={testboardID} requestCount={apiRequests.length} cookies={props.cookies} />
 					</div>
 					:
