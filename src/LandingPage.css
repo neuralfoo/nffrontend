@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+
 .landingpage-container{
 	display: flex;
 	flex-direction: column;
@@ -32,7 +34,7 @@
 }
 
 .landingpage-feature-list-title{
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Ubuntu Mono', monospace;
 	font-size: 20px;
 	text-align: left;
 	border-bottom: 2px solid #000;
@@ -40,8 +42,8 @@
 }
 
 .landingpage-feature-list-item{
-	font-family: 'Roboto', sans-serif;
-	font-size: 15px;
+	font-family: 'Ubuntu Mono', monospace;
+	font-size: 17px;
 	text-align: left;
 
 	margin:5px;

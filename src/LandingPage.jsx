@@ -12,7 +12,7 @@ function LandingPage(props) {
     <div className="landingpage-container">
       <div className="landingpage-subcontainer">
         <div className="landingpage-title">
-          The best platform for automated & comprehensive API testing.
+          A simple no-code tool for testing machine learning APIs.
         </div>
         <div className="landingpage-feature-list">
           <div className="landingpage-feature-list-item-container">
@@ -20,16 +20,16 @@ function LandingPage(props) {
               Neural Foo Features
             </div>
             <div className="landingpage-feature-list-item">
-              <CheckSquareOutlined /> Functional testing for APIs
+              <CheckSquareOutlined /> Functional testing for AI/ML APIs
             </div>
             <div className="landingpage-feature-list-item">
-              <CheckSquareOutlined /> Accuracy testing for APIs
+              <CheckSquareOutlined /> Accuracy testing for AI/ML APIs
             </div>
             <div className="landingpage-feature-list-item">
-              <CheckSquareOutlined /> Rigour testing for APIs
+              <CheckSquareOutlined /> Rigour testing for AI/ML APIs
             </div>
             <div className="landingpage-feature-list-item">
-              <CheckSquareOutlined /> Load and Endurance testing for APIs
+              <CheckSquareOutlined /> Load and Endurance testing for AI/ML APIs
             </div>
             <div className="landingpage-feature-list-item">
               <CheckSquareOutlined /> Standardized templates for all of the above tests
