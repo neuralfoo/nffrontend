@@ -1,7 +1,8 @@
 import React, {useState,useLayoutEffect} from 'react';
 import { Table,Space,Button,Tag } from 'antd';
 
-import { ReloadOutlined } from '@ant-design/icons';
+import { ReloadOutlined,SyncOutlined,CheckCircleOutlined,
+		ExclamationCircleOutlined,CoffeeOutlined } from '@ant-design/icons';
 
 import { useHistory } from "react-router-dom";
 
@@ -186,23 +187,37 @@ function AccuracyTable(props) {
 	    render: status => {
 	    	let color = "blue"
 	    	if (status === 'running') {
-	            color = 'green';
+	            color = 'purple';
+	            return (
+		            <Tag icon={<SyncOutlined spin />} color={color} key={status}>
+		              {status.toUpperCase()}
+		            </Tag>
+		          );
 	        }
 	        else if (status === 'completed') {
-	            color = 'gold';
+	            color = 'green';
+	            return (
+		            <Tag icon={<CheckCircleOutlined />} color={color} key={status}>
+		              {status.toUpperCase()}
+		            </Tag>
+		          );
 	        }
 	        else if (status === 'stopped') {
 	            color = 'red';
+	            return (
+		            <Tag icon={<ExclamationCircleOutlined />} color={color} key={status}>
+		              {status.toUpperCase()}
+		            </Tag>
+		          );
 	        }
 	        else if (status === 'ready') {
-	            color = 'blue';
+	            color = 'gold';
+	            return (
+		            <Tag icon={<CoffeeOutlined />} color={color} key={status}>
+		              {status.toUpperCase()}
+		            </Tag>
+		          );
 	        }
-	        
-	        return (
-	            <Tag color={color} key={status}>
-	              {status.toUpperCase()}
-	            </Tag>
-	          );
 	    },
 	  },
 	  {
