@@ -10,6 +10,8 @@ backend.createTestboard 			= backend.host + "/app/testboard/create"
 backend.getTestboard 				= backend.host + "/app/testboard/get/"
 backend.updateTestboard 			= backend.host + "/app/testboard/update"
 backend.listTestboards 				= backend.host + "/app/testboard/list"
+backend.getTestboardSettings 		= backend.host + "/app/testboard/settings/get"
+backend.updateTestboardSettings 	= backend.host + "/app/testboard/settings/update"
 
 backend.fetchUserDetails 			= backend.host + "/app/user/details/get"
 backend.updateUserDetails 			= backend.host + "/app/user/details/update"

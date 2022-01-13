@@ -175,6 +175,10 @@ function FunctionalTable(props) {
 	        value: 'stopped',
 	      },
 	      {
+	        text: 'ERROR',
+	        value: 'error',
+	      },
+	      {
 	        text: 'RUNNING',
 	        value: 'running',
 	      },
@@ -218,6 +222,14 @@ function FunctionalTable(props) {
 	            color = 'gold';
 	            return (
 		            <Tag icon={<CoffeeOutlined />} color={color} key={status}>
+		              {status.toUpperCase()}
+		            </Tag>
+		          );
+	        }
+	        else if (status === 'error') {
+	            color = 'red';
+	            return (
+		            <Tag icon={<ExclamationCircleOutlined />} color={color} key={status}>
 		              {status.toUpperCase()}
 		            </Tag>
 		          );
