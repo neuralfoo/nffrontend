@@ -40,9 +40,6 @@ function LandingPage(props) {
             <div className="landingpage-feature-list-item">
               <CheckSquareOutlined /> Completely No Code Interface
             </div>
-            <div className="landingpage-feature-list-item">
-              <CheckSquareOutlined /> Always Free!
-            </div>
           </div>
         </div>
         <div className="landingpage-calltoaction-container">
