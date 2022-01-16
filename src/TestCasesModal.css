@@ -6,3 +6,14 @@
 	word-wrap: break-word;
 	word-break: break-all;
 }
+
+.testcasesmodal-footer{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+.testcasesmodal-footer-button{
+	margin:0px 10px 0px 10px;
+}
+

@@ -36,6 +36,7 @@ backend.addFunctionalTestcase		= backend.host + "/app/testcontroller/functionalt
 backend.listFunctionalTestcases		= backend.host + "/app/testcontroller/functionaltest/testcase/list"
 backend.deleteFunctionalTestcase	= backend.host + "/app/testcontroller/functionaltest/testcase/delete"
 backend.editFunctionalTestcase		= backend.host + "/app/testcontroller/functionaltest/testcase/update"
+backend.importFunctionalTestcase	= backend.host + "/app/testcontroller/functionaltest/testcase/import"
 
 backend.functionalTestAction 		= backend.host + "/app/testcontroller/functionaltest/action"
 backend.functionalTestList 			= backend.host + "/app/testcontroller/functionaltest/list"

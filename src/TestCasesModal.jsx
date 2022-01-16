@@ -4,6 +4,7 @@ import { BarsOutlined } from '@ant-design/icons';
 
 import AddTestCaseModal from "./AddTestCaseModal"
 import EditTestCaseModal from "./EditTestCaseModal"
+import ImportFunctionalCasesModal from "./ImportFunctionalCasesModal"
 
 import "./TestCasesModal.css"
 
@@ -130,31 +131,36 @@ function TestCasesModal(props) {
     
   
     columns = columns.concat([
-      {
-        title: 'Request Body - Request '+(i+1).toString(),
-        dataIndex: 'requestBody'+(i+1).toString(),
-        key: 'requestBody'+(i+1).toString(),
-        width: 400
-      },
-      {
-        title: 'Response Code - Request '+(i+1).toString(),
-        dataIndex: 'responseCode'+(i+1).toString(),
-        key: 'responseCode'+(i+1).toString(),
-        width: 150 
-      },
-      {
-        title: 'Response Body - Request '+(i+1).toString(),
-        dataIndex: 'responseBody'+(i+1).toString(),
-        key: 'responseBody'+(i+1).toString(),
-        width: 400
-      },
-      {
-        title: 'Max Response Time - Request '+(i+1).toString(),
-        dataIndex: 'responseTime'+(i+1).toString(),
-        key: 'responseTime'+(i+1).toString(),
-        width: 150,
-        render:(text) => text.toString()+"s"
-      }
+    {
+      title: "Request "+(i+1).toString(),
+      children:[
+        {
+          title: 'Request Body',
+          dataIndex: 'requestBody'+(i+1).toString(),
+          key: 'requestBody'+(i+1).toString(),
+          width: 400
+        },
+        {
+          title: 'Response Code',
+          dataIndex: 'responseCode'+(i+1).toString(),
+          key: 'responseCode'+(i+1).toString(),
+          width: 150 
+        },
+        {
+          title: 'Response Body',
+          dataIndex: 'responseBody'+(i+1).toString(),
+          key: 'responseBody'+(i+1).toString(),
+          width: 400
+        },
+        {
+          title: 'Max Response Time',
+          dataIndex: 'responseTime'+(i+1).toString(),
+          key: 'responseTime'+(i+1).toString(),
+          width: 150,
+          render:(text) => text.toString()+"s"
+        }
+      ]
+    }
     ])
   }
 
@@ -188,10 +194,13 @@ function TestCasesModal(props) {
         onOk={handleOk} 
         onCancel={handleCancel}
         footer={[
-            <Button key="back" onClick={handleCancel}>
+            <div className="testcasesmodal-footer">
+            <Button key="back" onClick={handleCancel} className="testcasesmodal-footer-button">
               Close
-            </Button>,
-            <AddTestCaseModal key="addTestcase" getTestcases={getTestcases} requestCount={props.requestCount} testboardID={props.testboardID} cookies={props.cookies} />
+            </Button>
+            <ImportFunctionalCasesModal key="importTestcases" getTestcases={getTestcases} testboardID={props.testboardID} cookies={props.cookies} />
+            <AddTestCaseModal  key="addTestcase" getTestcases={getTestcases} requestCount={props.requestCount} testboardID={props.testboardID} cookies={props.cookies} />
+            </div>
           ]}
           >
         <Table className="testcasesmodal-table" scroll={{x:true}} pagination={{ pageSize: 5}} columns={columns} dataSource={tests} />

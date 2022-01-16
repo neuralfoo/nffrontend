@@ -200,7 +200,7 @@ function AddTestCaseModal(props) {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button type="primary" onClick={showModal} className="testcasesmodal-footer-button">
         <PlusSquareOutlined /> Create new testcase
       </Button>
       <Modal title="Create new test case" 
@@ -233,8 +233,6 @@ function AddTestCaseModal(props) {
           {
             forms.map( (item,index) => <div key={index} > {item} </div> )
           }
-          
-
       </Modal>
     </>
   );
