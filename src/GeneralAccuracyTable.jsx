@@ -9,7 +9,8 @@ import {
   CoffeeOutlined,
   PauseCircleOutlined,
   ExclamationCircleOutlined,
-  SettingOutlined
+  SettingOutlined,
+  CodeOutlined
 } from '@ant-design/icons';
 
 import { useHistory } from "react-router-dom";
@@ -367,7 +368,7 @@ function GeneralAccuracyTable(props) {
 				    	<ReloadOutlined /> Refresh Test List
 				    </Button>
 				    <Button type="primary" className="functionaltable-refresh-button" onClick={runAccuracyTest}>
-				    	Run New Test
+				    	<CodeOutlined /> Run New Test
 				    </Button>
 				</div>
 			</div>

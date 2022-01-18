@@ -1,6 +1,10 @@
 import React, {useState,useLayoutEffect} from 'react';
 import { Table,Space,Modal, Button,Typography } from 'antd';
 
+
+import { PlusSquareOutlined } from '@ant-design/icons';
+
+
 import { useHistory } from "react-router-dom";
 
 import "./AccuracyTestCasesTable.css"
@@ -14,6 +18,8 @@ import notif from "./notification"
 import endpoints from "./endpoints"
 
 import CodeEditor from '@uiw/react-textarea-code-editor';
+
+import ImportAccuracyCasesModal from './ImportAccuracyCasesModal'
 
 function AccuracyTestCasesTable(props) {
 
@@ -252,8 +258,9 @@ function AccuracyTestCasesTable(props) {
 				</div>
 
 				<div className="accuracytestcasestable-upload-holder">
-					<Button type="default" onClick={showCreateModal}>
-				    	Add Test Case 
+					<ImportAccuracyCasesModal getTestcases={getTestCasesForTestboard} testboardID={props.testboardID} cookies={props.cookies} />
+					<Button className="accuracytestcasestable-button" type="primary" onClick={showCreateModal}>
+				    	<PlusSquareOutlined /> Add Test Case 
 				    </Button>
 				</div>
 			</div>

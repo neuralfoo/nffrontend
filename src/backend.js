@@ -47,6 +47,7 @@ backend.editAccuracyTestcase 		= backend.host + "/app/testcontroller/accuracytes
 backend.deleteAccuracyTestcase 		= backend.host + "/app/testcontroller/accuracytest/testcase/delete"
 backend.getAccuracyTestcases		= backend.host + "/app/testcontroller/accuracytest/testcase/list"
 backend.addAccuracyTestcase			= backend.host + "/app/testcontroller/accuracytest/testcase/add"
+backend.importAccuracyTestcase 		= backend.host + "/app/testcontroller/accuracytest/testcase/import"
 
 backend.accuracyTestAction 			= backend.host + "/app/testcontroller/accuracytest/action"
 backend.accuracyTestList 			= backend.host + "/app/testcontroller/accuracytest/list"

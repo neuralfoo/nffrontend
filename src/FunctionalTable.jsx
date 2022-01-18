@@ -4,7 +4,7 @@ import { Table,Space,Button,Tag } from 'antd';
 import { ReloadOutlined,BarsOutlined,
 		SyncOutlined,CheckCircleOutlined,
 		ExclamationCircleOutlined,
-		CoffeeOutlined } from '@ant-design/icons';
+		CoffeeOutlined,CodeOutlined } from '@ant-design/icons';
 
 import { useHistory } from "react-router-dom";
 
@@ -260,7 +260,7 @@ function FunctionalTable(props) {
 				    	<ReloadOutlined /> Refresh Test List
 				    </Button>
 					<Button type="primary" className="functionaltable-refresh-button" onClick={runAccuracyTest}>
-				    	Run New Test
+				    	<CodeOutlined /> Run New Test
 				    </Button>
 				</div>
 			</div>
