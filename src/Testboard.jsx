@@ -50,7 +50,7 @@ function Testboard(props) {
 		var r = {}
 		r.apiEndpoint = ""
 		r.apiHeader = []
-		r.apiInputDataType = null
+		r.apiInputDataType = "none"
 		r.apiRequestBodyType = null
 		r.apiResponseBodyType = null
 		r.apiResponseBody = ""
