@@ -218,7 +218,7 @@ function Request(props) {
 					Add Header
 				</Button>
 
-				<div className="request-key-value-holder">
+				{/*<div className="request-key-value-holder">
 					<div className="request-keyname">
 						API Input Type
 					</div>
@@ -231,7 +231,7 @@ function Request(props) {
 					  <Radio value="base64" className="request-radio-button-text">Base64</Radio>
 					  <Radio value="none" className="request-radio-button-text">None</Radio>
 					</Radio.Group>
-				</div>
+				</div>*/}
 
 				<div className="request-horizontal-holder">
 
@@ -247,6 +247,7 @@ function Request(props) {
 						  <Radio value="json" className="request-radio-button-text" >JSON</Radio>
 						  <Radio value="formData" className="request-radio-button-text">Form-Data</Radio>
 						  <Radio value="binary" className="request-radio-button-text">Binary</Radio>
+						  <Radio value="rawText" className="request-radio-button-text">Raw-Text</Radio>
 						  <Radio value="none" className="request-radio-button-text">None</Radio>
 						</Radio.Group>
 

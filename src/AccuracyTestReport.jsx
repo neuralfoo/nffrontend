@@ -49,8 +49,24 @@ function AccuracyTestReport(props) {
 		console.log(record)
 		// console.log(e.target.parentNode.getAttribute("index"))
 
-		var text1 = JSON.stringify(JSON.parse(record[e.target.parentNode.getAttribute("text1")]),undefined, 2)
-		var text2 = JSON.stringify(JSON.parse(record[e.target.parentNode.getAttribute("text2")]),undefined, 2)
+		var text1 = "";
+		var text2 = "";
+
+		try {
+			text1 = JSON.stringify(JSON.parse(record[e.target.parentNode.getAttribute("text1")]),undefined, 2)
+		}
+		catch(err) {
+			text1 = record[e.target.parentNode.getAttribute("text1")]
+		}
+
+
+		try {
+			text2 = JSON.stringify(JSON.parse(record[e.target.parentNode.getAttribute("text2")]),undefined, 2)
+		}
+		catch(err) {
+			text2 = record[e.target.parentNode.getAttribute("text2")]
+		}
+		
 		
 		setModalOutput1(text1)
 		setModalOutput2(text2)

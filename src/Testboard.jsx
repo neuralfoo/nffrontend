@@ -318,8 +318,8 @@ function Testboard(props) {
 								onChange = {(evn) => onFieldChange(evn,"apiType")} 
 								disabled = {testboardReceived} >
 
-								<Option value="imageclassification">Image Classification</Option>
-								<Option value="generalapi">General API</Option>
+								{/*<Option value="imageclassification">Image Classification</Option>*/}
+								{/*<Option value="generalapi">General API</Option>*/}
 								<Option value="aimlapi">AI/ML API</Option>
 								{/*<Option value="objectdetection">Object Detection</Option>*/}
 							</Select>

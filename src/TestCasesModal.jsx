@@ -169,8 +169,8 @@ function TestCasesModal(props) {
       key: 'action',
       render: (text, record) => (
         <Space size="middle">
-          <Button type="link" onClick={() => deleteTestCase(record["testcaseID"])}>Delete</Button>
           <Button type="link" onClick={() => editTestCase(record["testcaseID"],record)}>Edit</Button>
+          <Button type="link" onClick={() => deleteTestCase(record["testcaseID"])}>Delete</Button>
         </Space>
       ),
     },

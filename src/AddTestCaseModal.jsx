@@ -69,11 +69,7 @@ function AddTestCaseModal(props) {
         notif.error("Response time cannot be empty")
         return
       }
-
-      if (!payload.testcaseValues[i]["requestBody"]){
-        notif.error("Response code cannot be empty")
-        return
-      } 
+ 
     }
 
 

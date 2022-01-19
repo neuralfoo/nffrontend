@@ -50,16 +50,43 @@ function FunctionalTestReport(props) {
 		console.log(e.target.parentNode.getAttribute("index"))
 
 		if (title === "API Response Body") {
-			var text1 = JSON.stringify(JSON.parse(record["expectedResponseBody"+e.target.parentNode.getAttribute("index")]),undefined, 2)
-			var text2 = JSON.stringify(JSON.parse(record["receivedResponseBody"+e.target.parentNode.getAttribute("index")]),undefined, 2)
+
+			var text1 = ""
+
+			try {
+				text1 = JSON.stringify(JSON.parse(record["expectedResponseBody"+e.target.parentNode.getAttribute("index")]),undefined, 2)
+			}
+			catch(err) {
+				text1 = record["expectedResponseBody"+e.target.parentNode.getAttribute("index")]
+			}
+
+
+			var text2 = ""
+
+			try {
+				text2 = JSON.stringify(JSON.parse(record["receivedResponseBody"+e.target.parentNode.getAttribute("index")]),undefined, 2)
+			}
+			catch(err) {
+				text2 = record["receivedResponseBody"+e.target.parentNode.getAttribute("index")]
+			}
 			
 			setModalOutput1(text1)
 			setModalOutput2(text2)
 		}
 		else{
-			var text1 = JSON.stringify(JSON.parse(record[e.target.parentNode.getAttribute("index")]),undefined, 2)
+			
+			var text1 = ""
+
+			try {
+				text1 = JSON.stringify(JSON.parse(record[e.target.parentNode.getAttribute("index")]),undefined, 2)
+			}
+			catch(err) {
+				text1 = record[e.target.parentNode.getAttribute("index")]
+			}
+
 			setModalOutput1(text1)
 			setModalOutput2("")	
+		
 		}
 		setModalTitle(title)
 		showModal()
