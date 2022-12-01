@@ -1,0 +1,1 @@
+docker run --rm -dt -p 3000:3000 --name nff nf-frontend:1 

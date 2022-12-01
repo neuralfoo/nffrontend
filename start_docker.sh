@@ -1,0 +1,1 @@
+docker run --rm -dt --network=host --name nff nf-frontend:1

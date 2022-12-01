@@ -1,0 +1,17 @@
+FROM node:18.12.1-slim
+
+WORKDIR /app
+
+COPY . .
+
+ENV NODE_OPTIONS=--openssl-legacy-provider
+ENV REACT_APP_BACKEND_HOST=http://neuralfoo.com
+ENV REACT_APP_FRONTEND_HOST=http://neuralfoo.com
+
+RUN npm install
+RUN npm install --global serve
+RUN npm run build
+RUN mkdir build/web
+RUN mv build/static build/web
+
+CMD serve -l 3000 -s build
